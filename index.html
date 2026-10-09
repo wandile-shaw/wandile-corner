@@ -5,6 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Wandile's Internet Corner</title>
 <meta name="theme-color" content="#02040a">
+<link rel="apple-touch-icon" href="/icon.png">
+<link rel="icon" href="/icon.png">
+<meta name="apple-mobile-web-app-title" content="Wandile">
 <meta name="description" content="Wandile's internet corner: Instagram, Shein orders and the Sentinels universe.">
 <meta property="og:title" content="Wandile's Internet Corner">
 <meta property="og:type" content="website">
@@ -39,6 +42,11 @@ header{text-align:center;margin-bottom:34px;animation:rise .9s ease both}
 .lw.on .logo{filter:drop-shadow(0 0 14px rgba(255,255,255,.95)) brightness(1.25)}
 .eye{position:absolute;width:24%;height:25%;border-radius:50%;pointer-events:none;opacity:0;transition:opacity .35s;background:radial-gradient(ellipse,rgba(255,255,255,.95),rgba(255,255,255,0) 70%);filter:blur(6px);mix-blend-mode:screen}
 .e1{left:2.5%;top:15.5%}.e2{left:35%;top:18%}
+.st{display:inline-flex;align-items:center;gap:7px;margin-top:9px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6dffa0}
+.st i{width:8px;height:8px;border-radius:50%;background:#34f07a;box-shadow:0 0 10px #34f07a;animation:pulse 1.6s ease-in-out infinite}
+.st em{font-style:normal}
+.st.closed{color:#ff8a8a}.st.closed i{background:#ff4d4d;box-shadow:0 0 10px #ff4d4d;animation:none}
+@keyframes pulse{50%{opacity:.35}}
 .print{position:absolute;pointer-events:none;width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;border:2px solid rgba(88,178,255,.9);background:radial-gradient(circle,rgba(88,178,255,.55),rgba(88,178,255,0) 65%);box-shadow:0 0 18px rgba(47,139,255,.8);animation:print .7s ease-out forwards}
 @keyframes print{from{transform:scale(.2);opacity:1}to{transform:scale(1.5);opacity:0}}
 .lw.on .eye{opacity:1}
@@ -93,7 +101,7 @@ footer span{color:var(--glow)}
 <a class="card" href="https://www.instagram.com/wandile_shaw/" target="_blank" rel="noopener">
 <div class="ic">📸</div><div><div class="name">INSTAGRAM</div><div class="sub">@wandile_shaw</div></div><div class="arrow">→</div></a>
 <a class="card" href="https://chat.whatsapp.com/F9p3T9QLKo22W7QhhTpszE?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener">
-<div class="ic">🛍️</div><div><div class="name">SHEIN ORDERS</div><div class="sub">Shein brand ambassador · Zambia only 🇿🇲</div></div><div class="arrow">→</div></a>
+<div class="ic">🛍️</div><div><div class="name">SHEIN ORDERS</div><div class="sub">Shein brand ambassador · Zambia only 🇿🇲</div><span class="st open" id="st"><i></i><em>Orders open</em></span></div><div class="arrow">→</div></a>
 <div class="how"><b>HOW TO ORDER 🛍️</b><ol><li>Join the group</li><li>Place your order through the admins</li><li>We notify you when your order is made and when it lands</li><li>You send the payment to us</li></ol></div>
 <a class="card hero" href="https://sentinels-website.vercel.app/index.html" target="_blank" rel="noopener">
 <div class="ic">⚡</div><div><div class="name">SENTINELS</div><div class="sub">The comic universe. Enter at your own risk.</div></div><div class="arrow">→</div></a>
@@ -105,6 +113,8 @@ footer span{color:var(--glow)}
 </main>
 
 <script>
+// SHEIN ORDERS: change true to false when orders are closed
+var ORDERS_OPEN=true;
 (function(){
 var c=document.getElementById('fx'),x=c.getContext('2d'),W,H,bolts=[],dots=[],dpr=Math.min(window.devicePixelRatio||1,2);
 function size(){W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
@@ -163,6 +173,8 @@ lw.addEventListener('click',function(){
  setTimeout(function(){lw.classList.remove('on')},5000);
  setTimeout(function(){delete lw.dataset.busy},5400);
 });
+var st=document.getElementById('st');st.className='st '+(ORDERS_OPEN?'open':'closed');st.querySelector('em').textContent=ORDERS_OPEN?'Orders open':'Orders closed';
+setTimeout(function(){var r=lw.getBoundingClientRect();bolt({c:(r.left+r.width/2)/W});lw.classList.add('on');setTimeout(function(){lw.classList.remove('on')},700)},900);
 document.querySelectorAll('.card').forEach(function(el){
  el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
   el.style.setProperty('--ry',((px-.5)*10)+'deg');el.style.setProperty('--rx',((.5-py)*8)+'deg');el.style.setProperty('--mx',px*100+'%');el.style.setProperty('--my',py*100+'%')});
