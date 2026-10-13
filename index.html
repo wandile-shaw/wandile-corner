@@ -125,8 +125,7 @@ footer span{color:var(--glow)}
 <footer>A Little Goes a Long Way.<br>© Wandile</footer>
 </main>
 
-<div id="nov" aria-hidden="true"><div id="nbar"><button id="nb" type="button">&larr; Back</button><a href="https://eclipse-book.wandile-shaw.workers.dev/" target="_blank" rel="noopener">Open in browser &#8599;</a></div><iframe id="nf" title="Eclipse novel"></iframe></div>
-<div id="gate" hidden><img id="gl" alt=""></div>
+<div id="nov" aria-hidden="true"><iframe id="nf" title="Eclipse novel"></iframe></div>
 <script>
 // SHEIN ORDERS: change true to false when orders are closed
 var ORDERS_OPEN=true;
@@ -196,17 +195,15 @@ lw.addEventListener('click',function(){
 });
 var st=document.getElementById('st');st.className='st '+(ORDERS_OPEN?'open':'closed');st.querySelector('em').textContent=ORDERS_OPEN?'Orders open':'Orders closed';
 function intro(){var r=lw.getBoundingClientRect();bolt({c:(r.left+r.width/2)/W});lw.classList.add('on');setTimeout(function(){lw.classList.remove('on')},700)}
-var gate=document.getElementById('gate'),entered=false;
-function enter(){if(entered)return;entered=true;au();chill();gate.classList.add('lit');setTimeout(function(){gate.classList.add('go')},500);setTimeout(function(){gate.remove()},1300);setTimeout(intro,700)}
-document.getElementById('gl').src=document.querySelector('.logo').src;gate.hidden=false;gate.addEventListener('click',enter);
+var chilled=false;
+setTimeout(function(){intro();try{au();if(ac){var go=function(){if(ac.state==='running'&&!chilled){chilled=true;chill()}};go();if(ac.resume)ac.resume().then(go).catch(function(){})}}catch(e){}},700);
 var tt=/musical_ly|TikTok|Bytedance/i.test(navigator.userAgent);
 if(tt){[['instagram.com','instagram://user?username=wandile_shaw'],['chat.whatsapp.com','whatsapp://chat?code=F9p3T9QLKo22W7QhhTpszE']].forEach(function(m){var a=document.querySelector('a.card[href*="'+m[0]+'"]');if(!a)return;a.addEventListener('click',function(e){e.preventDefault();var web=a.href;location.href=m[1];setTimeout(function(){if(!document.hidden)location.href=web},2500)})})}
 var nov=document.getElementById('nov'),nf=document.getElementById('nf'),ecl=document.querySelector('a.hero');
 function openNov(push){if(!nf.getAttribute('src'))nf.src='https://eclipse-book.wandile-shaw.workers.dev/';nov.classList.add('open');nov.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';if(push)history.pushState({n:1},'','#eclipse')}
 function shutNov(){nov.classList.remove('open');nov.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 function backNov(){if(history.state&&history.state.n)history.back();else shutNov()}
-ecl.addEventListener('click',function(e){e.preventDefault();openNov(true)});
-document.getElementById('nb').addEventListener('click',backNov);
+if(tt)ecl.addEventListener('click',function(e){e.preventDefault();openNov(true)});
 addEventListener('popstate',function(){if(nov.classList.contains('open'))shutNov()});
 document.querySelectorAll('.card').forEach(function(el){
  el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
