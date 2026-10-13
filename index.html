@@ -52,6 +52,11 @@ header{text-align:center;margin-bottom:34px;animation:rise .9s ease both}
 .gt span{display:block;font-size:22px;font-weight:800;letter-spacing:.35em;color:var(--text);text-shadow:0 0 18px rgba(88,178,255,.8);animation:breathe 2s ease-in-out infinite}
 .gt small{display:block;margin-top:12px;color:var(--mute);letter-spacing:.2em;font-size:12px;text-transform:uppercase}
 @keyframes breathe{50%{opacity:.45}}
+#nov{position:fixed;inset:0;z-index:20;background:#050816;display:flex;flex-direction:column;transform:translateY(100%);visibility:hidden;transition:transform .45s cubic-bezier(.2,.8,.2,1),visibility 0s .45s}
+#nov.open{transform:none;visibility:visible;transition:transform .45s cubic-bezier(.2,.8,.2,1)}
+#nbar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:calc(env(safe-area-inset-top,0px) + 10px) 16px 10px;background:#070c20;border-bottom:1px solid #1f2c5c}
+#nbar button,#nbar a{font:600 14px system-ui,sans-serif;color:#e6eeff;background:#0d1430;border:1px solid rgba(88,178,255,.4);border-radius:10px;padding:8px 14px;text-decoration:none}
+#nov iframe{flex:1;width:100%;border:0;background:#050816}
 .st{display:inline-flex;align-items:center;gap:7px;margin-top:9px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6dffa0}
 .st i{width:8px;height:8px;border-radius:50%;background:#34f07a;box-shadow:0 0 10px #34f07a;animation:pulse 1.6s ease-in-out infinite}
 .st em{font-style:normal}
@@ -120,6 +125,7 @@ footer span{color:var(--glow)}
 <footer>A Little Goes a Long Way.<br>© Wandile</footer>
 </main>
 
+<div id="nov" aria-hidden="true"><div id="nbar"><button id="nb" type="button">&larr; Back</button><a href="https://eclipse-book.wandile-shaw.workers.dev/" target="_blank" rel="noopener">Open in browser &#8599;</a></div><iframe id="nf" title="Eclipse novel"></iframe></div>
 <div id="gate" hidden><img id="gl" alt=""></div>
 <script>
 // SHEIN ORDERS: change true to false when orders are closed
@@ -193,6 +199,15 @@ function intro(){var r=lw.getBoundingClientRect();bolt({c:(r.left+r.width/2)/W})
 var gate=document.getElementById('gate'),entered=false;
 function enter(){if(entered)return;entered=true;au();chill();gate.classList.add('lit');setTimeout(function(){gate.classList.add('go')},500);setTimeout(function(){gate.remove()},1300);setTimeout(intro,700)}
 document.getElementById('gl').src=document.querySelector('.logo').src;gate.hidden=false;gate.addEventListener('click',enter);
+var tt=/musical_ly|TikTok|Bytedance/i.test(navigator.userAgent);
+if(tt){[['instagram.com','instagram://user?username=wandile_shaw'],['chat.whatsapp.com','whatsapp://chat?code=F9p3T9QLKo22W7QhhTpszE']].forEach(function(m){var a=document.querySelector('a.card[href*="'+m[0]+'"]');if(!a)return;a.addEventListener('click',function(e){e.preventDefault();var web=a.href;location.href=m[1];setTimeout(function(){if(!document.hidden)location.href=web},2500)})})}
+var nov=document.getElementById('nov'),nf=document.getElementById('nf'),ecl=document.querySelector('a.hero');
+function openNov(push){if(!nf.getAttribute('src'))nf.src='https://eclipse-book.wandile-shaw.workers.dev/';nov.classList.add('open');nov.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';if(push)history.pushState({n:1},'','#eclipse')}
+function shutNov(){nov.classList.remove('open');nov.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+function backNov(){if(history.state&&history.state.n)history.back();else shutNov()}
+ecl.addEventListener('click',function(e){e.preventDefault();openNov(true)});
+document.getElementById('nb').addEventListener('click',backNov);
+addEventListener('popstate',function(){if(nov.classList.contains('open'))shutNov()});
 document.querySelectorAll('.card').forEach(function(el){
  el.addEventListener('pointermove',function(e){var r=el.getBoundingClientRect(),px=(e.clientX-r.left)/r.width,py=(e.clientY-r.top)/r.height;
   el.style.setProperty('--ry',((px-.5)*10)+'deg');el.style.setProperty('--rx',((.5-py)*8)+'deg');el.style.setProperty('--mx',px*100+'%');el.style.setProperty('--my',py*100+'%')});
