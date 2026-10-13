@@ -151,10 +151,8 @@ function frame(t){
   x.shadowBlur=0;b.life-=.035;return b.life>0});
  requestAnimationFrame(frame)}
 requestAnimationFrame(frame);
-var SIL='data:audio/wav;base64,UklGRrQBAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YZABAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA',sa;
-function unlock(){try{if(navigator.audioSession)navigator.audioSession.type='playback';if(!sa){sa=new Audio(SIL);sa.loop=true;sa.setAttribute('playsinline','')}var p=sa.play();if(p&&p.catch)p.catch(function(){})}catch(e){}}
 var AC=window.AudioContext||window.webkitAudioContext,ac,mg;
-function au(){unlock();try{if(!ac&&AC){ac=new AC();mg=ac.createGain();mg.gain.value=.6;mg.connect(ac.destination)}if(ac&&ac.state==='suspended')ac.resume()}catch(e){}return ac}
+function au(){try{if(!ac&&AC){ac=new AC();mg=ac.createGain();mg.gain.value=.6;mg.connect(ac.destination)}if(ac&&ac.state==='suspended')ac.resume()}catch(e){}return ac}
 function nb(d,p){var n=Math.floor(ac.sampleRate*d),b=ac.createBuffer(1,n,ac.sampleRate),a=b.getChannelData(0);for(var i=0;i<n;i++)a[i]=(Math.random()*2-1)*Math.pow(1-i/n,p||2);return b}
 function ns(d,type,freq,vol,p){if(!ac)return;var s=ac.createBufferSource();s.buffer=nb(d,p);var f=ac.createBiquadFilter();f.type=type;f.frequency.value=freq;var g=ac.createGain();g.gain.value=vol;s.connect(f);f.connect(g);g.connect(mg);s.start()}
 function thunder(){if(!ac)return;var d=2.8+Math.random()*1.2,t=ac.currentTime,n=Math.floor(ac.sampleRate*d),b=ac.createBuffer(1,n,ac.sampleRate),a=b.getChannelData(0),l=0,i;
