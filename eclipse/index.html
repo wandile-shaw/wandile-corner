@@ -106,9 +106,9 @@ function show(d){mine=d.mine||0;paint(mine);msg.textContent=mine?(d.n>=3?'Averag
 fetch(RATE_URL+'/?id='+encodeURIComponent(id)).then(function(r){return r.json()}).then(function(d){box.hidden=false;show(d)}).catch(function(){});
 st.forEach(function(b){b.addEventListener('click',function(){var s=+b.dataset.s;paint(s);msg.textContent='Saving...';fetch(RATE_URL+'/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,stars:s})}).then(function(r){return r.json()}).then(show).catch(function(){msg.textContent='Could not save. Try again.'})})});
 })();
-</script>
-<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "72bf7dc2a5804386a06f2e6c3610c2e7"}'>(function(){var T=Date.UTC(2026,9,17,10,0,0),cd=document.getElementById('cd');
+(function(){var T=Date.UTC(2026,9,17,10,0,0),cd=document.getElementById('cd');
 function tick(){var ms=T-Date.now();if(ms<=0){cd.textContent='Releasing today';return}var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);cd.textContent='Unlocks in '+(d?d+'d ':'')+h+'h '+m+'m'}
 tick();setInterval(tick,30000)})();
-</script><!-- End Cloudflare Web Analytics -->
+</script>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "72bf7dc2a5804386a06f2e6c3610c2e7"}'></script><!-- End Cloudflare Web Analytics -->
 </body></html>
