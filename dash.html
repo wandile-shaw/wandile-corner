@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#02040a">
+<title>Dashboard</title>
+<style>
+:root{--bg:#02040a;--card:#0a1020;--line:#1b2a55;--text:#eaf3ff;--mute:#7f93b5;--blue:#2f8bff;--glow:#58b2ff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,sans-serif;padding:16px 16px 40px;max-width:640px;margin:0 auto}
+h1{font-size:20px;letter-spacing:.14em}
+.sub{color:var(--mute);font-size:12px;margin:2px 0 16px}
+.card{background:linear-gradient(145deg,#101a33,var(--card));border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:14px}
+.card h2{font-size:11px;letter-spacing:.25em;text-transform:uppercase;color:var(--glow);margin-bottom:12px}
+.big{font-size:46px;font-weight:800;line-height:1}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.k{background:#060b18;border:1px solid var(--line);border-radius:12px;padding:12px 6px;text-align:center}
+.k b{display:block;font-size:24px}
+.k span{font-size:10px;color:var(--mute);letter-spacing:.1em;text-transform:uppercase}
+.k small{display:block;font-size:11px;color:var(--mute)}
+.row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:14px}
+.n{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.v{color:var(--mute);min-width:40px;text-align:right}
+.bar{flex:0 0 34%;height:8px;border-radius:4px;background:#16204a;overflow:hidden}
+.bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--glow))}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#34f07a;box-shadow:0 0 10px #34f07a;margin-right:8px;animation:p 1.6s infinite}
+@keyframes p{50%{opacity:.3}}
+.chart{display:flex;align-items:flex-end;gap:4px;height:110px}
+.chart div{flex:1;height:100%;display:flex;flex-direction:column;justify-content:flex-end;text-align:center;font-size:9px;color:var(--mute)}
+.chart i{display:block;background:linear-gradient(0deg,var(--blue),var(--glow));border-radius:3px 3px 0 0;min-height:2px;margin-bottom:3px}
+.none{color:var(--mute);font-size:13px}
+input,button{font:inherit;color:var(--text);background:#0d1430;border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+button{margin-top:10px;background:var(--blue);border:0;font-weight:700}
+#login{margin-top:26vh}
+#err{color:#ff8a8a;font-size:13px;margin-top:8px}
+</style></head><body>
+<div id="login" hidden>
+<h1>DASHBOARD</h1><p class="sub">Private. Type your password.</p>
+<input id="pw" type="password" autocomplete="current-password" placeholder="Password">
+<button id="go" type="button">Open</button><p id="err"></p>
+</div>
+<div id="app" hidden>
+<h1>WANDILE &middot; DASHBOARD</h1><p class="sub" id="upd">Loading...</p>
+<div class="card"><h2>Reading now</h2><div class="big"><span class="dot"></span><span id="live">0</span></div><div id="livep" style="margin-top:12px"></div></div>
+<div class="card"><h2>People who visited</h2><div class="grid" id="per"></div></div>
+<div class="card"><h2>Last 14 days (people per day)</h2><div class="chart" id="chart"></div></div>
+<div class="card"><h2>Pages (last 30 days)</h2><div id="pages"></div></div>
+<div class="card"><h2>Countries (last 30 days)</h2><div id="countries"></div></div>
+<div class="card"><h2>Where they came from</h2><div id="sources"></div></div>
+<div class="card"><h2>Devices</h2><div id="devices"></div></div>
+<div class="card"><h2>Taps (last 30 days)</h2><div id="taps"></div></div>
+<div class="card"><h2>Eclipse star ratings</h2><div id="stars"></div></div>
+</div>
+<script>
+(function(){
+var API='https://eclipse-ratings.wandile-shaw.workers.dev/stats';
+var key='';try{key=localStorage.getItem('dkey')||''}catch(e){}
+function $(i){return document.getElementById(i)}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})}
+var dn=null;try{dn=new Intl.DisplayNames(['en'],{type:'region'})}catch(e){}
+function cname(c){if(!c||c==='XX')return'Unknown';if(c==='T1')return'Tor network';try{return dn?dn.of(c):c}catch(e){return c}}
+function flag(c){if(!/^[A-Z]{2}$/.test(c||'')||c==='XX')return'\uD83C\uDF0D';return String.fromCodePoint(127397+c.charCodeAt(0),127397+c.charCodeAt(1))}
+var PAGE={home:'Internet Corner',eclipse:'Eclipse front page'};
+function pname(p){return PAGE[p]||(p.indexOf('ep')===0?'Episode '+p.slice(2):p)}
+var TAP={ig:'Instagram',shein:'Shein group',eclipse:'Eclipse card',mail:'Email',logo:'Logo (easter egg)'};
+function bars(list,nameFn,valFn,unit){
+  if(!list.length)return'<p class="none">Nothing yet.</p>';
+  var max=Math.max.apply(null,list.map(valFn))||1;
+  return list.map(function(x){var v=valFn(x);return'<div class="row"><span class="n">'+nameFn(x)+'</span><span class="bar"><i style="width:'+Math.max(4,Math.round(v/max*100))+'%"></i></span><span class="v">'+v+(unit||'')+'</span></div>'}).join('');
+}
+function render(d){
+  $('live').textContent=d.live.total;
+  $('livep').innerHTML=d.live.pages.length?d.live.pages.map(function(p){return'<div class="row"><span class="n">'+esc(pname(p.page))+'</span><span class="v">'+p.c+'</span></div>'}).join(''):'<p class="none">Nobody right now.</p>';
+  function k(label,o){return'<div class="k"><b>'+o.p+'</b><span>'+label+'</span><small>'+o.v+' views</small></div>'}
+  $('per').innerHTML=k('Today',d.periods.today)+k('7 days',d.periods.d7)+k('30 days',d.periods.d30);
+  var map={};d.daily.forEach(function(x){map[x.d]=x.p});
+  var days=[],i;for(i=13;i>=0;i--)days.push(new Date(d.now+7200000-i*864e5).toISOString().slice(0,10));
+  var mx=Math.max.apply(null,days.map(function(x){return map[x]||0}))||1;
+  $('chart').innerHTML=days.map(function(x){var v=map[x]||0;return'<div title="'+x+': '+v+'"><i style="height:'+Math.round(v/mx*80)+'%"></i>'+x.slice(8)+'</div>'}).join('');
+  $('pages').innerHTML=bars(d.pages.slice().sort(function(a,b){return b.p-a.p}),function(x){return esc(pname(x.page))+' <span class="v">'+x.v+' views</span>'},function(x){return x.p},' people');
+  $('countries').innerHTML=bars(d.countries,function(x){return flag(x.c)+' '+esc(cname(x.c))},function(x){return x.p});
+  $('sources').innerHTML=bars(d.sources,function(x){return esc(x.k)},function(x){return x.p});
+  $('devices').innerHTML=bars(d.devices,function(x){return esc(x.k)},function(x){return x.p});
+  $('taps').innerHTML=bars(d.taps,function(x){return esc(TAP[x.k]||x.k)+' <span class="v">'+x.p+' people</span>'},function(x){return x.c},' taps');
+  var r=d.ratings,n=0,s=0,j;for(j=1;j<=5;j++){n+=r[j]||0;s+=(r[j]||0)*j}
+  $('stars').innerHTML=n?'<div class="big" style="font-size:34px">'+(s/n).toFixed(1)+' <span style="color:#ffc65c">\u2605</span> <span class="v" style="font-size:14px">'+n+' ratings</span></div><div style="margin-top:10px">'+[5,4,3,2,1].map(function(t){return'<div class="row"><span class="n">'+t+' \u2605</span><span class="bar"><i style="width:'+Math.round((r[t]||0)/Math.max.apply(null,[1,2,3,4,5].map(function(z){return r[z]||0}))*100)+'%"></i></span><span class="v">'+(r[t]||0)+'</span></div>'}).join('')+'</div>':'<p class="none">No ratings yet.</p>';
+  var t=new Date();$('upd').textContent='Updated '+t.toLocaleTimeString()+' \u00b7 refreshes by itself';
+}
+function showLogin(msg){$('app').hidden=true;$('login').hidden=false;$('err').textContent=msg||''}
+function load(){
+  if(!key){showLogin();return}
+  fetch(API,{headers:{'X-Key':key}}).then(function(r){
+    if(r.status===401){try{localStorage.removeItem('dkey')}catch(e){}key='';showLogin('Wrong password.');throw 0}
+    return r.json();
+  }).then(function(d){try{localStorage.setItem('wignore','1')}catch(e){}$('login').hidden=true;$('app').hidden=false;render(d)}).catch(function(e){if(e!==0&&!$('app').hidden)$('upd').textContent='Could not refresh. Trying again...'});
+}
+$('go').addEventListener('click',function(){key=$('pw').value.trim();try{localStorage.setItem('dkey',key)}catch(e){}load()});
+$('pw').addEventListener('keydown',function(e){if(e.key==='Enter')$('go').click()});
+load();setInterval(function(){if(document.visibilityState==='visible'&&key)load()},15000);
+window.__render=render;
+})();
+</script>
+</body></html>
