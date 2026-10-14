@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://wandile-corner.wandile-shaw.workers.dev/sitemap.xml
