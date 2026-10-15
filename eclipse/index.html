@@ -72,6 +72,7 @@ footer{position:relative;z-index:2;text-align:center;color:var(--mute);font-size
 <a class="ep" href="#episode-1" id="ep1"><div class="th" style="background-image:url(p0.jpg)"></div><div><div class="n">EPISODE 1</div><div class="ti">The Other Life</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
 <a class="ep" href="#episode-2" id="ep2"><div class="th" style="background-image:url(e2-01.jpg)"></div><div><div class="n">EPISODE 2</div><div class="ti">Loose Ends</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
 <div class="ep lock"><div class="th">&#128274;</div><div style="flex:1"><div class="n">EPISODE 3</div><span class="red"></span><span class="chip dev"><i></i><span id="cd">Coming soon</span></span></div></div>
+<div class="ep lock"><div class="th">&#128274;</div><div style="flex:1"><div class="n">EPISODE 4</div><span class="red"></span><span class="chip dev"><i></i><span id="cd4">Coming soon</span></span></div></div>
 <div class="rate" id="rate" hidden><h2>Rate Eclipse</h2><div class="stars" id="stars"><button type="button" data-s="1" aria-label="1 star">&#9733;</button><button type="button" data-s="2" aria-label="2 stars">&#9733;</button><button type="button" data-s="3" aria-label="3 stars">&#9733;</button><button type="button" data-s="4" aria-label="4 stars">&#9733;</button><button type="button" data-s="5" aria-label="5 stars">&#9733;</button></div><p id="rmsg"></p></div>
 </main>
 <footer><a href="/" style="color:inherit;text-decoration:none">&larr; Wandile's Internet Corner</a><br>&copy; Wandile</footer>
@@ -106,8 +107,8 @@ function show(d){mine=d.mine||0;paint(mine);msg.textContent=mine?(d.n>=3?'Averag
 fetch(RATE_URL+'/?id='+encodeURIComponent(id)).then(function(r){return r.json()}).then(function(d){box.hidden=false;show(d)}).catch(function(){});
 st.forEach(function(b){b.addEventListener('click',function(){var s=+b.dataset.s;paint(s);msg.textContent='Saving...';fetch(RATE_URL+'/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,stars:s})}).then(function(r){return r.json()}).then(show).catch(function(){msg.textContent='Could not save. Try again.'})})});
 })();
-(function(){var T=Date.UTC(2026,9,17,10,0,0),cd=document.getElementById('cd');
-function tick(){var ms=T-Date.now();if(ms<=0){cd.textContent='Releasing today';return}var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);cd.textContent='Unlocks in '+(d?d+'d ':'')+h+'h '+m+'m'}
+(function(){var L=[['cd',Date.UTC(2026,9,17,10,0,0)],['cd4',Date.UTC(2026,9,19,10,0,0)]];
+function tick(){L.forEach(function(x){var e=document.getElementById(x[0]);if(!e)return;var ms=x[1]-Date.now();if(ms<=0){e.textContent='Releasing today';return}var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);e.textContent='Unlocks in '+(d?d+'d ':'')+h+'h '+m+'m'})}
 tick();setInterval(tick,30000)})();
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "72bf7dc2a5804386a06f2e6c3610c2e7"}'></script><!-- End Cloudflare Web Analytics -->
