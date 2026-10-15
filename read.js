@@ -161,7 +161,7 @@
   /* ---- phone voice ---- */
   var ss = ('speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined') ? window.speechSynthesis : null;
   if (!ss) { bv.style.display = 'none'; }
-  var list = [], bi = 0, si2 = 0, tok = 0, flip = false, narr = null, chr = null, cands = [], vIdx = 0, lock = null, wt = null;
+  var jumped = false, list = [], bi = 0, si2 = 0, tok = 0, flip = false, narr = null, chr = null, cands = [], vIdx = 0, lock = null, wt = null;
   var MALE = ['Daniel', 'Oliver', 'Arthur', 'Aaron', 'Evan', 'Nathan', 'Tom', 'Guy', 'Ryan', 'Alex', 'Rishi', 'Google UK English Male'];
   var FEM = ['Samantha', 'Ava', 'Zoe', 'Allison', 'Susan', 'Karen', 'Moira', 'Tessa', 'Serena', 'Fiona', 'Aria', 'Jenny', 'Zira', 'Nicky', 'Google UK English Female'];
   function quality(v) { var s = 0, n = v.name; if (/premium/i.test(n)) s += 60; if (/enhanced/i.test(n)) s += 40; if (/siri/i.test(n)) s += 50; if (/neural|natural|online/i.test(n)) s += 60; if (v.localService) s += 5; return s; }
@@ -217,7 +217,7 @@
     if (!playing || mode !== 'voice') return;
     if (bi >= list.length) { stopVoice(true); return; }
     var my = ++tok, b = list[bi], text = b.s[si2];
-    if (si2 === 0) mark(true);
+    if (si2 === 0 || jumped) { mark(true); jumped = false; }
     var u = new SpeechSynthesisUtterance(text), r = rate();
     if (b.type === 'dlg') { u.voice = chr; u.pitch = flip ? 1.07 : 0.95; u.rate = r * 1.0; if (si2 === b.s.length - 1) flip = !flip; }
     else if (b.type === 'head') { u.voice = narr; u.pitch = 0.92; u.rate = r * 0.88; flip = false; }
@@ -246,6 +246,7 @@
     if (!list.length) build(); if (!list.length) return;
     if (bi === 0 && si2 === 0 || bi >= list.length) { bi = 0; for (var k = 0; k < list.length; k++) { if (list[k].el.getBoundingClientRect().bottom > 90) { bi = k; break; } } si2 = 0; }
     playing = true; tok++; ss.cancel(); wake(true); paint(); setTimeout(speak, 80);
+    if (ls('vrtip') !== '1') { ls('vrtip', '1'); setTimeout(function () { toast('Tip: tap any line to read from there'); }, 600); }
   }
   function pauseVoice() { playing = false; tok++; clearTimeout(wt); if (ss) ss.cancel(); wake(false); mark(false); paint(); }
   function stopVoice(done) { pauseVoice(); if (done) { bi = 0; si2 = 0; } }
@@ -271,5 +272,28 @@
   window.addEventListener('message', function (e) { if (e.origin === location.origin && e.data === 'stop') { if (mode === 'audio') audStop(); else stopVoice(false); } });
   window.addEventListener('pagehide', function () { if (ss) ss.cancel(); });
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && playing && mode === 'voice') pauseVoice(); });
+  /* while listening, tap any line to start reading from there */
+  main.addEventListener('click', function (e) {
+    if (!(playing && mode === 'voice' && ss)) return;
+    var t = e.target; if (!t || !t.closest) return;
+    if (t.closest('a,button,input,nav,.back')) return;
+    var sel = window.getSelection && window.getSelection(); if (sel && String(sel).length > 0) return;
+    var el = t.closest('h2,h3,p,.msg,.doc,li'); if (!el) return;
+    var k = -1, i;
+    for (i = 0; i < list.length; i++) { if (list[i].el === el || list[i].el.contains(t)) { k = i; break; } }
+    if (k < 0) return;
+    var b = list[k], sIdx = 0;
+    try {
+      var pos = null;
+      if (document.caretRangeFromPoint) pos = document.caretRangeFromPoint(e.clientX, e.clientY);
+      else if (document.caretPositionFromPoint) { var cp = document.caretPositionFromPoint(e.clientX, e.clientY); if (cp) { pos = document.createRange(); pos.setStart(cp.offsetNode, cp.offset); } }
+      if (pos) {
+        var r = document.createRange(); r.selectNodeContents(el); r.setEnd(pos.startContainer, pos.startOffset);
+        var frac = Math.min(1, r.toString().length / Math.max(1, el.textContent.length)), acc = 0, total = b.s.join(' ').length;
+        for (i = 0; i < b.s.length; i++) { acc += b.s[i].length + 1; sIdx = i; if (acc / total > frac) break; }
+      }
+    } catch (x) {}
+    mark(false); bi = k; si2 = sIdx; jumped = true; tok++; clearTimeout(wt); ss.cancel(); toast('Reading from here'); setTimeout(speak, 60);
+  });
   window.__eclSplit = splitSentences;
 })();
