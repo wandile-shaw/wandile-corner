@@ -81,7 +81,7 @@ footer{position:relative;z-index:2;text-align:center;color:var(--mute);font-size
 var rd=document.getElementById('reader'),fr=document.getElementById('fr'),ready=false;
 var ep=0;function load(n){if(ep!==n){fr.src='episode-'+n+'.html';ep=n}}
 function openEp(n,push){load(n);document.getElementById('rt').textContent='Eclipse \u00b7 Episode '+n;rd.classList.add('open');rd.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';if(push)history.pushState({r:n},'','#episode-'+n)}
-function shut(){rd.classList.remove('open');rd.setAttribute('aria-hidden','true');document.body.style.overflow=''}
+function shut(){try{fr.contentWindow.postMessage('stop',location.origin)}catch(e){}rd.classList.remove('open');rd.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 function back(){if(history.state&&history.state.r)history.back();else{shut();history.replaceState(null,'',location.pathname)}}
 [1,2].forEach(function(n){document.getElementById('ep'+n).addEventListener('click',function(e){e.preventDefault();openEp(n,true)})});
 document.getElementById('rb').addEventListener('click',back);
