@@ -24,7 +24,6 @@
   var bp = bar.querySelector('#vp'), bb = bar.querySelector('#vb'), bn = bar.querySelector('#vn'), bs = bar.querySelector('#vs');
 
   var list = [], i = 0, playing = false, tok = 0, flip = false, narr = null, chr = null, lock = null;
-  var follow = true; // false once the reader scrolls on purpose, so the screen stops chasing the voice
   var SPEEDS = [1, 1.15, 1.3, 0.9], si = 0;
   try { si = Math.max(0, SPEEDS.indexOf(parseFloat(localStorage.getItem('vrate')))); } catch (e) {}
   function rate() { return SPEEDS[si]; }
@@ -75,7 +74,7 @@
     var b = list[i]; if (!b) return;
     if (on) {
       b.el.classList.add('rd');
-      if (follow) { try { b.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} }
+      try { b.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
     } else b.el.classList.remove('rd');
   }
   function say() {
@@ -105,24 +104,20 @@
       i = 0;
       for (var k = 0; k < list.length; k++) { if (list[k].el.getBoundingClientRect().bottom > 90) { i = k; break; } }
     }
-    follow = true; playing = true; tok++; ss.cancel(); bp.innerHTML = '&#9208; Pause'; wake(true);
+    playing = true; tok++; ss.cancel(); bp.innerHTML = '&#9208; Pause'; wake(true);
     setTimeout(say, 80);
   }
   function pause() { playing = false; tok++; ss.cancel(); bp.innerHTML = '&#127911; Listen'; wake(false); mark(false); }
   function stopAll(done) { playing = false; tok++; ss.cancel(); mark(false); if (done) i = 0; bp.innerHTML = '&#127911; Listen'; wake(false); }
 
   bp.addEventListener('click', function () { if (playing) pause(); else play(); });
-  bn.addEventListener('click', function () { if (!list.length) build(); follow = true; mark(false); i = Math.min(list.length - 1, i + 1); if (playing) { tok++; ss.cancel(); setTimeout(say, 60); } else play(); });
-  bb.addEventListener('click', function () { if (!list.length) build(); follow = true; mark(false); i = Math.max(0, i - 1); if (playing) { tok++; ss.cancel(); setTimeout(say, 60); } else play(); });
+  bn.addEventListener('click', function () { if (!list.length) build(); mark(false); i = Math.min(list.length - 1, i + 1); if (playing) { tok++; ss.cancel(); setTimeout(say, 60); } else play(); });
+  bb.addEventListener('click', function () { if (!list.length) build(); mark(false); i = Math.max(0, i - 1); if (playing) { tok++; ss.cancel(); setTimeout(say, 60); } else play(); });
   bs.addEventListener('click', function () {
     si = (si + 1) % SPEEDS.length; showRate();
     try { localStorage.setItem('vrate', String(SPEEDS[si])); } catch (e) {}
     if (playing) { tok++; ss.cancel(); setTimeout(say, 60); }
   });
-  function manual() { if (playing) follow = false; }
-  window.addEventListener('touchmove', manual, { passive: true });
-  window.addEventListener('wheel', manual, { passive: true });
-  window.addEventListener('keydown', function (e) { if ([33, 34, 35, 36, 38, 40].indexOf(e.keyCode) > -1) manual(); });
   window.addEventListener('message', function (e) { if (e.origin === location.origin && e.data === 'stop') stopAll(false); });
   window.addEventListener('pagehide', function () { ss.cancel(); });
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && playing) pause(); });
