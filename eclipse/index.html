@@ -5,7 +5,7 @@
 <title>ECLIPSE | An illustrated superhero novel by Wandile Shaw</title>
 <link rel="canonical" href="https://wandile-corner.wandile-shaw.workers.dev/eclipse/">
 <meta property="og:title" content="ECLIPSE: an illustrated superhero novel">
-<meta property="og:description" content="Read Eclipse, an illustrated superhero novel by Wandile Shaw. Episodes 1, 2 and 3 are out now.">
+<meta property="og:description" content="A student. A billionaire. A missing scientist. Read Eclipse, an illustrated superhero novel by Wandile Shaw. Episodes 1 to 3 are out now. New episode every Friday.">
 <meta property="og:image" content="https://wandile-corner.wandile-shaw.workers.dev/eclipse/p0.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Eclipse is an illustrated superhero novel by Wandile Shaw. Read Episodes 1 to 3 free online.">
@@ -62,17 +62,29 @@ footer{position:relative;z-index:2;text-align:center;color:var(--mute);font-size
 #rbar button{font:600 14px system-ui,sans-serif;color:var(--ink);background:var(--card);border:1px solid rgba(88,178,255,.4);border-radius:10px;padding:8px 14px}
 #rbar span{font-size:11px;letter-spacing:.25em;color:var(--mute);text-transform:uppercase}
 #reader iframe{flex:1;width:100%;border:0;background:#070b1a}
+.hook{margin:10px auto 0;max-width:420px;color:#dbe6ff;font-size:15px;line-height:1.5;letter-spacing:.02em;text-transform:none}
+.hook b{color:#fff}
+.lock .chip{white-space:nowrap;font-size:10px;letter-spacing:.08em;padding:5px 9px}
+.tease{margin:2px 0 14px;padding:14px 16px;border-radius:16px;text-align:center;font-size:14px;color:#b9c9ef;background:rgba(127,176,255,.07);border:1px dashed rgba(127,176,255,.4)}
+.tease b{color:#fff;letter-spacing:.12em}
+.sched{margin:18px 2px 0;text-align:center;color:var(--mute);font-size:13px;line-height:1.6}
+.sched b{color:var(--ink)}
+.acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 0}
+.acts a,.acts button{font:600 13px system-ui,sans-serif;color:var(--ink);background:var(--card);border:1px solid rgba(88,178,255,.4);border-radius:12px;padding:11px 14px;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.acts a:active,.acts button:active{background:#1b3a7a}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style></head><body>
 <canvas id="rain"></canvas>
 <section class="hero"><img src="p0.jpg" alt="Eclipse crouching on a rooftop at night">
-<div class="t"><h1>ECLIPSE</h1><p>An illustrated superhero novel</p></div></section>
+<div class="t"><h1>ECLIPSE</h1><p>An illustrated superhero novel</p><div class="hook"><b>A student. A billionaire. A missing scientist.</b></div></div></section>
 <main>
 <h2>Choose your episode</h2>
 <a class="ep" href="#episode-1" id="ep1"><div class="th" style="background-image:url(p0.jpg)"></div><div><div class="n">EPISODE 1</div><div class="ti">The Other Life</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
 <a class="ep" href="#episode-2" id="ep2"><div class="th" style="background-image:url(e2-01.jpg)"></div><div><div class="n">EPISODE 2</div><div class="ti">Loose Ends</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
-<a class="ep" href="#episode-3" id="ep3"><div class="th" style="background-image:url(e3-12.jpg)"></div><div><div class="n">EPISODE 3</div><div class="ti">The Man Who Disappeared</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
+<a class="ep" href="#episode-3" id="ep3"><div class="th" style="background-image:url(e3-12.jpg)"></div><div><div class="n">EPISODE 3</div><div class="ti">The Man Who Disappeared</div><span class="chip live"><i></i>Latest &middot; Out now</span></div><div class="go">&rarr;</div></a>
 <div class="ep lock"><div class="th">&#128274;</div><div style="flex:1"><div class="n">EPISODE 4</div><span class="red"></span><span class="chip dev"><i></i><span id="cd4">Coming soon</span></span></div></div>
+<div class="sched"><b>New episode every Friday at midnight.</b></div>
+<div class="acts"><button type="button" id="cal">&#128197; Add to calendar</button><a id="wach" target="_blank" rel="noopener" href="#" hidden>&#128276; Get updates on WhatsApp</a><button type="button" id="shr">&#128279; Share Eclipse</button></div>
 <div class="rate" id="rate" hidden><h2>Rate Eclipse</h2><div class="stars" id="stars"><button type="button" data-s="1" aria-label="1 star">&#9733;</button><button type="button" data-s="2" aria-label="2 stars">&#9733;</button><button type="button" data-s="3" aria-label="3 stars">&#9733;</button><button type="button" data-s="4" aria-label="4 stars">&#9733;</button><button type="button" data-s="5" aria-label="5 stars">&#9733;</button></div><p id="rmsg"></p></div>
 </main>
 <footer><a href="/" style="color:inherit;text-decoration:none">&larr; Wandile's Internet Corner</a><br>&copy; Wandile</footer>
@@ -107,9 +119,29 @@ function show(d){mine=d.mine||0;paint(mine);msg.textContent=mine?(d.n>=3?'Averag
 fetch(RATE_URL+'/?id='+encodeURIComponent(id)).then(function(r){return r.json()}).then(function(d){box.hidden=false;show(d)}).catch(function(){});
 st.forEach(function(b){b.addEventListener('click',function(){var s=+b.dataset.s;paint(s);msg.textContent='Saving...';fetch(RATE_URL+'/',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id,stars:s})}).then(function(r){return r.json()}).then(show).catch(function(){msg.textContent='Could not save. Try again.'})})});
 })();
-(function(){var L=[['cd',Date.UTC(2026,9,17,10,0,0)],['cd4',Date.UTC(2026,9,19,10,0,0)]];
-function tick(){L.forEach(function(x){var e=document.getElementById(x[0]);if(!e)return;var ms=x[1]-Date.now();if(ms<=0){e.textContent='Releasing today';return}var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);e.textContent='Unlocks in '+(d?d+'d ':'')+h+'h '+m+'m'})}
+(function(){var L=[['cd4',Date.UTC(2026,9,22,22,0,0)]];
+function tick(){L.forEach(function(x){var e=document.getElementById(x[0]);if(!e)return;var ms=x[1]-Date.now();if(ms<=0){e.textContent='Dropping now';return}var d=Math.floor(ms/864e5),h=Math.floor(ms%864e5/36e5),m=Math.floor(ms%36e5/6e4);e.textContent='Unlocks in '+(d?d+'d ':'')+h+'h '+m+'m'})}
 tick();setInterval(tick,30000)})();
+</script>
+<script>
+(function(){
+// Paste your WhatsApp Channel link here to show the "Get updates" button. Leave empty to hide it.
+var CHANNEL_URL='';
+var WHEN='20261022T220000Z',END='20261022T223000Z'; // Friday 23 Oct 12:00 AM (UTC+2)
+var title='New Eclipse episode',url='https://wandile-corner.wandile-shaw.workers.dev/eclipse/';
+function $(i){return document.getElementById(i)}
+if(CHANNEL_URL){var w=$('wach');w.href=CHANNEL_URL;w.hidden=false}
+var G='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&details='+encodeURIComponent('Read it here: '+url)+'&dates='+WHEN+'/'+END+'&recur='+encodeURIComponent('RRULE:FREQ=WEEKLY');
+$('cal').addEventListener('click',function(){
+if(/iPhone|iPad|Macintosh/.test(navigator.userAgent)){location.href='eclipse.ics'}else{window.open(G,'_blank')}
+});
+$('shr').addEventListener('click',function(){
+var d={title:'ECLIPSE',text:'Read Eclipse, an illustrated superhero novel.',url:url};
+if(navigator.share){navigator.share(d).catch(function(){})}
+else if(navigator.clipboard){navigator.clipboard.writeText(url).then(function(){$('shr').textContent='Link copied'})}
+else{prompt('Copy this link',url)}
+});
+})();
 </script>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "72bf7dc2a5804386a06f2e6c3610c2e7"}'></script><!-- End Cloudflare Web Analytics -->
 <script src="/t.js" data-page="eclipse" defer></script>
