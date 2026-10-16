@@ -11,9 +11,7 @@
     '#vr{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 14px);z-index:40;display:flex;align-items:center;gap:6px;padding:6px 8px;border-radius:999px;background:rgba(8,13,32,.92);border:1px solid rgba(88,178,255,.5);box-shadow:0 8px 24px rgba(0,0,0,.6),0 0 18px rgba(47,139,255,.3);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}' +
     '#vr button{font:600 14px system-ui,sans-serif;color:#e6eeff;background:transparent;border:0;border-radius:999px;padding:9px 12px;min-width:44px;-webkit-tap-highlight-color:transparent}' +
     '#vr button:active{background:rgba(88,178,255,.25)}' +
-    '#vr #vp{background:#1b3a7a;padding:9px 16px}' +
-    '#vj{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 72px);z-index:41;display:none;font:600 13px system-ui,sans-serif;color:#e6eeff;background:#1b3a7a;border:1px solid rgba(88,178,255,.6);border-radius:999px;padding:9px 16px;box-shadow:0 6px 18px rgba(0,0,0,.6);-webkit-tap-highlight-color:transparent}' +
-    '#vj.on{display:block}';
+    '#vr #vp{background:#1b3a7a;padding:9px 16px}';
   document.head.appendChild(css);
 
   var bar = document.createElement('div');
@@ -23,13 +21,10 @@
     '<button id="vn" type="button" aria-label="Next paragraph">&#9197;</button>' +
     '<button id="vs" type="button" aria-label="Speed">1&times;</button>';
   document.body.appendChild(bar);
-  var jump = document.createElement('button');
-  jump.id = 'vj'; jump.type = 'button'; jump.innerHTML = '&#128205; Back to where it\u2019s reading';
-  document.body.appendChild(jump);
   var bp = bar.querySelector('#vp'), bb = bar.querySelector('#vb'), bn = bar.querySelector('#vn'), bs = bar.querySelector('#vs');
 
   var list = [], i = 0, playing = false, tok = 0, flip = false, narr = null, chr = null, lock = null;
-  var follow = true; // true = screen follows the voice; false = the reader has scrolled away on purpose
+  var follow = true; // false once the reader scrolls on purpose, so the screen stops chasing the voice
   var SPEEDS = [1, 1.15, 1.3, 0.9], si = 0;
   try { si = Math.max(0, SPEEDS.indexOf(parseFloat(localStorage.getItem('vrate')))); } catch (e) {}
   function rate() { return SPEEDS[si]; }
@@ -76,24 +71,11 @@
   pick();
   if (ss.addEventListener) ss.addEventListener('voiceschanged', pick);
 
-  function vh() { return window.innerHeight || document.documentElement.clientHeight; }
-  function inView(el) { var r = el.getBoundingClientRect(); return r.bottom > 0 && r.top < vh() - 70; }
-  function inBand(el) { var r = el.getBoundingClientRect(), h = vh(); return r.top > h * 0.15 && r.bottom < h * 0.72; }
-  function updJump() {
-    var b = list[i];
-    jump.classList.toggle('on', !!(playing && !follow && b && !inView(b.el)));
-  }
-  function goHere() {
-    var b = list[i]; if (!b) return;
-    try { b.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {}
-  }
   function mark(on) {
     var b = list[i]; if (!b) return;
     if (on) {
       b.el.classList.add('rd');
-      // only chase the voice if the reader has not scrolled away, and only when the line is leaving the comfortable zone
-      if (follow && !inBand(b.el)) goHere();
-      updJump();
+      if (follow) { try { b.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} }
     } else b.el.classList.remove('rd');
   }
   function say() {
@@ -119,16 +101,15 @@
   function play() {
     if (!list.length) build();
     if (!list.length) return;
-    follow = true;
-    if (i === 0 || i >= list.length || !inView(list[i].el)) {
+    if (i === 0 || i >= list.length) {
       i = 0;
       for (var k = 0; k < list.length; k++) { if (list[k].el.getBoundingClientRect().bottom > 90) { i = k; break; } }
     }
-    playing = true; tok++; ss.cancel(); bp.innerHTML = '&#9208; Pause'; wake(true);
+    follow = true; playing = true; tok++; ss.cancel(); bp.innerHTML = '&#9208; Pause'; wake(true);
     setTimeout(say, 80);
   }
-  function pause() { playing = false; follow = true; jump.classList.remove('on'); tok++; ss.cancel(); bp.innerHTML = '&#127911; Listen'; wake(false); mark(false); }
-  function stopAll(done) { playing = false; follow = true; jump.classList.remove('on'); tok++; ss.cancel(); mark(false); if (done) i = 0; bp.innerHTML = '&#127911; Listen'; wake(false); }
+  function pause() { playing = false; tok++; ss.cancel(); bp.innerHTML = '&#127911; Listen'; wake(false); mark(false); }
+  function stopAll(done) { playing = false; tok++; ss.cancel(); mark(false); if (done) i = 0; bp.innerHTML = '&#127911; Listen'; wake(false); }
 
   bp.addEventListener('click', function () { if (playing) pause(); else play(); });
   bn.addEventListener('click', function () { if (!list.length) build(); follow = true; mark(false); i = Math.min(list.length - 1, i + 1); if (playing) { tok++; ss.cancel(); setTimeout(say, 60); } else play(); });
@@ -138,13 +119,10 @@
     try { localStorage.setItem('vrate', String(SPEEDS[si])); } catch (e) {}
     if (playing) { tok++; ss.cancel(); setTimeout(say, 60); }
   });
-  // Free scrolling: any touch-drag, wheel or scroll key while it is reading stops the screen from chasing the voice.
-  function manual() { if (playing && follow) follow = false; updJump(); }
+  function manual() { if (playing) follow = false; }
   window.addEventListener('touchmove', manual, { passive: true });
   window.addEventListener('wheel', manual, { passive: true });
-  window.addEventListener('keydown', function (e) { if ([32, 33, 34, 35, 36, 38, 40].indexOf(e.keyCode) > -1) manual(); });
-  window.addEventListener('scroll', function () { if (!follow) updJump(); }, { passive: true });
-  jump.addEventListener('click', function () { follow = true; goHere(); jump.classList.remove('on'); });
+  window.addEventListener('keydown', function (e) { if ([33, 34, 35, 36, 38, 40].indexOf(e.keyCode) > -1) manual(); });
   window.addEventListener('message', function (e) { if (e.origin === location.origin && e.data === 'stop') stopAll(false); });
   window.addEventListener('pagehide', function () { ss.cancel(); });
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'hidden' && playing) pause(); });
