@@ -34,6 +34,7 @@
       fetch(API, { method: 'POST', body: JSON.stringify(o), keepalive: true, headers: { 'Content-Type': 'text/plain' } }).catch(function () {});
     } catch (e) {}
   }
+  window.__eclSend = send;
   send({ ev: 'view' });
   setInterval(function () { if (document.visibilityState === 'visible') send({ hb: 1, ev: 'hb' }); }, page.indexOf('ep') === 0 ? 20000 : 30000);
   document.addEventListener('visibilitychange', function () { if (document.visibilityState === 'visible') send({ hb: 1, ev: 'hb' }); });
