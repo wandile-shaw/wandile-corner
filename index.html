@@ -58,6 +58,7 @@ header{text-align:center;margin-bottom:34px;animation:rise .9s ease both}
 .st{display:inline-flex;align-items:center;gap:7px;margin-top:9px;font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#6dffa0}
 .st i{width:8px;height:8px;border-radius:50%;background:#34f07a;box-shadow:0 0 10px #34f07a;animation:pulse 1.6s ease-in-out infinite}
 .st em{font-style:normal}
+.st.soon{color:#ffc65c}.st.soon i{background:#ffc65c;box-shadow:0 0 10px #ffc65c}
 .st.closed{color:#ff8a8a}.st.closed i{background:#ff4d4d;box-shadow:0 0 10px #ff4d4d;animation:none}
 @keyframes pulse{50%{opacity:.35}}
 .print{position:absolute;pointer-events:none;width:90px;height:90px;margin:-45px 0 0 -45px;border-radius:50%;border:2px solid rgba(88,178,255,.9);background:radial-gradient(circle,rgba(88,178,255,.55),rgba(88,178,255,0) 65%);box-shadow:0 0 18px rgba(47,139,255,.8);animation:print .7s ease-out forwards}
@@ -117,18 +118,18 @@ footer span{color:var(--glow)}
 <a class="card" href="https://www.instagram.com/wandile_shaw/" target="_blank" rel="noopener">
 <div class="ic">📸</div><div><div class="name">INSTAGRAM</div><div class="sub">@wandile_shaw</div></div><div class="arrow">→</div></a>
 <a class="card" href="https://chat.whatsapp.com/F9p3T9QLKo22W7QhhTpszE?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener">
-<div class="ic">🛍️</div><div><div class="name">SHEIN ORDERS</div><div class="sub">Shein brand ambassador · Zambia only 🇿🇲</div><span class="st open" id="st"><i></i><em>Orders open</em></span></div><div class="arrow">→</div></a>
+<div class="ic">🛍️</div><div><div class="name">SHEIN ORDERS</div><div class="sub">Shein brand ambassador · Zambia only 🇿🇲</div><span class="st soon" id="st"><i></i><em>Orders open soon</em></span></div><div class="arrow">→</div></a>
 <div class="how"><b>HOW TO ORDER 🛍️</b><ol><li>Join the group</li><li>Place your order through the admins</li><li>We notify you when your order is made and when it lands</li><li>You send the payment to us</li></ol></div>
 <a class="card hero" href="/eclipse/">
-<div class="ic">🌙</div><div><div class="name">ECLIPSE</div><div class="sub">The illustrated superhero novel. Start reading.</div></div><div class="arrow">→</div></a>
+<div class="ic">🌙</div><div><div class="name">ECLIPSE</div><div class="sub">The illustrated superhero novel. Start reading.</div><span class="st open"><i></i><em>Episode 3 out now</em></span></div><div class="arrow">→</div></a>
 </section>
 <a class="mail" href="mailto:wandileshawa@gmail.com">✉️ wandileshawa@gmail.com</a>
 <footer>A Little Goes a Long Way.<em class="amb">The darkest days produce the brightest stars.</em>© Wandile</footer>
 </main>
 
 <script>
-// SHEIN ORDERS: change true to false when orders are closed
-var ORDERS_OPEN=true;
+// SHEIN ORDERS: set to 'open', 'soon' or 'closed'
+var ORDERS_STATE='soon';
 (function(){
 var c=document.getElementById('fx'),x=c.getContext('2d'),W,H,bolts=[],dots=[],dpr=Math.min(window.devicePixelRatio||1,2);
 function size(){W=innerWidth;H=innerHeight;c.width=W*dpr;c.height=H*dpr;x.setTransform(dpr,0,0,dpr,0,0)}
@@ -193,7 +194,7 @@ lw.addEventListener('click',function(){
  setTimeout(function(){lw.classList.remove('on')},5000);
  setTimeout(function(){delete lw.dataset.busy},5400);
 });
-var st=document.getElementById('st');st.className='st '+(ORDERS_OPEN?'open':'closed');st.querySelector('em').textContent=ORDERS_OPEN?'Orders open':'Orders closed';
+var st=document.getElementById('st');st.className='st '+ORDERS_STATE;st.querySelector('em').textContent={open:'Orders open',soon:'Orders open soon',closed:'Orders closed'}[ORDERS_STATE];
 function intro(){var r=lw.getBoundingClientRect();bolt({c:(r.left+r.width/2)/W});lw.classList.add('on');setTimeout(function(){lw.classList.remove('on')},700)}
 var chilled=false;
 setTimeout(function(){intro();try{au();if(ac){var go=function(){if(ac.state==='running'&&!chilled){chilled=true;chill()}};go();if(ac.resume)ac.resume().then(go).catch(function(){})}}catch(e){}},700);
