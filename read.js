@@ -28,8 +28,18 @@
     '#sc{font:12px system-ui,sans-serif;color:#8d9bc4;min-width:38px;text-align:center}' +
     '#sr button{font:600 15px system-ui,sans-serif;color:#e6eeff;background:#0d1430;border:1px solid rgba(88,178,255,.4);border-radius:10px;width:38px;height:38px;padding:0}' +
     '#vc{position:fixed;z-index:43;left:50%;transform:translateX(-50%);top:calc(env(safe-area-inset-top,0px) + 56px);padding:9px 16px;border-radius:999px;background:#1b3a7a;border:1px solid rgba(88,178,255,.6);color:#fff;font:600 13px system-ui,sans-serif;display:none;box-shadow:0 6px 18px rgba(0,0,0,.6)}' +
-    '#vc.show{display:block}';
+    '#vc.show{display:block}' +
+    '#vj{position:fixed;z-index:43;left:50%;transform:translateX(-50%);bottom:calc(env(safe-area-inset-bottom,0px) + 74px);padding:9px 16px;border-radius:999px;background:#1b3a7a;border:1px solid rgba(88,178,255,.6);color:#fff;font:600 13px system-ui,sans-serif;display:none;box-shadow:0 6px 18px rgba(0,0,0,.6)}#vj.show{display:block}' +
+    '.endbox{margin:48px 0 14px;padding:22px 16px;border:1px solid #1f2c5c;border-radius:16px;background:linear-gradient(145deg,#13224f,#0d1430);text-align:center;font-family:system-ui,sans-serif;color:#dbe3f5}' +
+    '.endbox h4{margin:0 0 10px;font-size:16px;letter-spacing:.04em;color:#fff}' +
+    '.eb-stars{display:flex;justify-content:center;gap:4px}.eb-stars button{background:none;border:0;font-size:36px;line-height:1;color:#2a3a6e;padding:4px;-webkit-tap-highlight-color:transparent;transition:transform .15s,color .15s}.eb-stars button.on{color:#ffc65c;text-shadow:0 0 12px rgba(255,190,70,.7)}.eb-stars button:active{transform:scale(1.2)}' +
+    '.eb-m{margin:6px 0 14px;font-size:13px;color:#8d9bc4}' +
+    '.eb-share{font:600 14px system-ui,sans-serif;color:#fff;background:#1b3a7a;border:1px solid rgba(88,178,255,.5);border-radius:12px;padding:11px 18px;margin-bottom:16px}' +
+    '.eb-n{margin:6px 0;font-size:14px;color:#cfe0ff}.eb-go,.eb-cal{display:inline-block;margin-top:6px;font:600 14px system-ui,sans-serif;color:#7fb0ff;text-decoration:none}';
   document.head.appendChild(css);
+  var css2 = document.createElement('style');
+  css2.textContent = '.prev{margin:30px 0 0;padding:16px 18px;border-left:3px solid #7fb0ff;background:rgba(127,176,255,.07);border-radius:0 12px 12px 0;font:15px/1.65 Georgia,serif;color:#c3d0ee}.prev b{display:block;margin-bottom:6px;font:600 11px system-ui,sans-serif;letter-spacing:.25em;text-transform:uppercase;color:#7fb0ff}.prev p{margin:0}';
+  document.head.appendChild(css2);
 
   /* ---------- DOM ---------- */
   var ui = document.createElement('div');
@@ -37,6 +47,7 @@
     '<button id="sf" type="button" aria-label="Search this episode">&#128269;</button>' +
     '<div id="sr"><input id="sq" type="search" placeholder="Search this episode" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false"><span id="sc"></span><button id="sp" type="button" aria-label="Previous">&#9650;</button><button id="sn" type="button" aria-label="Next">&#9660;</button><button id="sx" type="button" aria-label="Close">&#10005;</button></div>' +
     '<button id="vc" type="button">&#8617; Continue where you left off</button>' +
+    '<button id="vj" type="button">&#8615; Back to where it\'s reading</button>' +
     '<div id="vt"></div>' +
     '<div id="vr"><button id="vb" type="button" aria-label="Back">&#9198;</button><button id="vp" type="button" aria-label="Play or pause">&#9654;</button><button id="vn" type="button" aria-label="Forward">&#9197;</button><button id="vs" type="button" aria-label="Speed">1&times;</button><button id="vv" type="button" aria-label="Change voice">&#128483;</button><button id="vz" type="button" aria-label="Stop" style="display:none">&#9209;</button></div>' +
     '<button id="vf" type="button" aria-label="Listen">&#127911;</button>';
@@ -161,7 +172,7 @@
   /* ---- phone voice ---- */
   var ss = ('speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined') ? window.speechSynthesis : null;
   if (!ss) { bv.style.display = 'none'; }
-  var jumped = false, list = [], bi = 0, si2 = 0, tok = 0, flip = false, narr = null, chr = null, cands = [], vIdx = 0, lock = null, wt = null;
+  var follow = true, jumped = false, list = [], bi = 0, si2 = 0, tok = 0, flip = false, narr = null, chr = null, cands = [], vIdx = 0, lock = null, wt = null;
   var MALE = ['Daniel', 'Oliver', 'Arthur', 'Aaron', 'Evan', 'Nathan', 'Tom', 'Guy', 'Ryan', 'Alex', 'Rishi', 'Google UK English Male'];
   var FEM = ['Samantha', 'Ava', 'Zoe', 'Allison', 'Susan', 'Karen', 'Moira', 'Tessa', 'Serena', 'Fiona', 'Aria', 'Jenny', 'Zira', 'Nicky', 'Google UK English Female'];
   function quality(v) { var s = 0, n = v.name; if (/premium/i.test(n)) s += 60; if (/enhanced/i.test(n)) s += 40; if (/siri/i.test(n)) s += 50; if (/neural|natural|online/i.test(n)) s += 60; if (v.localService) s += 5; return s; }
@@ -198,7 +209,7 @@
     var els = main.querySelectorAll('h2,h3,p,.msg,.doc,li');
     for (var k = 0; k < els.length; k++) {
       var el = els[k];
-      if (el.closest('nav') || el.classList.contains('back')) continue;
+      if (el.closest('nav') || el.closest('.endbox') || el.classList.contains('back')) continue;
       var tx, type = 'narr';
       if (el.classList.contains('msg')) {
         var sm = el.querySelector('small'), who = sm ? sm.textContent.trim() : '';
@@ -212,7 +223,7 @@
       if (tx.length > 1) list.push({ el: el, text: tx, type: type, s: type === 'head' ? [tx] : splitSentences(tx) });
     }
   }
-  function mark(on) { var b = list[bi]; if (!b) return; if (on) { b.el.classList.add('rd'); try { b.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} } else b.el.classList.remove('rd'); }
+  function mark(on) { var b = list[bi]; if (!b) return; if (on) { b.el.classList.add('rd'); if (follow) { try { b.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} } } else b.el.classList.remove('rd'); }
   function speak() {
     if (!playing || mode !== 'voice') return;
     if (bi >= list.length) { stopVoice(true); return; }
@@ -245,20 +256,21 @@
     if (!ss) { toast('Voice is not available here'); return; }
     if (!list.length) build(); if (!list.length) return;
     if (bi === 0 && si2 === 0 || bi >= list.length) { bi = 0; for (var k = 0; k < list.length; k++) { if (list[k].el.getBoundingClientRect().bottom > 90) { bi = k; break; } } si2 = 0; }
-    playing = true; tok++; ss.cancel(); wake(true); paint(); setTimeout(speak, 80);
+    follow = true; playing = true; tok++; ss.cancel(); wake(true); paint(); setTimeout(speak, 80);
     if (ls('vrtip') !== '1') { ls('vrtip', '1'); setTimeout(function () { toast('Tip: tap any line to read from there'); }, 600); }
   }
   function pauseVoice() { playing = false; tok++; clearTimeout(wt); if (ss) ss.cancel(); wake(false); mark(false); paint(); }
   function stopVoice(done) { pauseVoice(); if (done) { bi = 0; si2 = 0; } }
 
-  function paint() { bp.innerHTML = playing ? '&#9208;' : '&#9654;'; fab.className = playing ? 'on' : ''; fab.setAttribute('aria-label', playing ? 'Listening' : 'Listen'); }
+  function syncChip() { var j = $('vj'); if (j) j.className = (playing && !follow && mode === 'voice') ? 'show' : ''; }
+  function paint() { bp.innerHTML = playing ? '&#9208;' : '&#9654;'; fab.className = playing ? 'on' : ''; fab.setAttribute('aria-label', playing ? 'Listening' : 'Listen'); syncChip(); }
   bp.addEventListener('click', function () {
     if (mode === 'audio') { if (playing) audPause(); else audPlay(); }
     else { if (playing) pauseVoice(); else playVoice(); }
   });
   function step(d) {
     if (mode === 'audio') { if (!audio) audPlay(); if (audio) audio.currentTime = Math.max(0, audio.currentTime + (d > 0 ? 30 : -15)); return; }
-    if (!list.length) build(); mark(false); bi = Math.min(list.length - 1, Math.max(0, bi + d)); si2 = 0;
+    if (!list.length) build(); mark(false); follow = true; bi = Math.min(list.length - 1, Math.max(0, bi + d)); si2 = 0;
     if (playing) { tok++; ss.cancel(); clearTimeout(wt); setTimeout(speak, 60); } else playVoice();
   }
   $('vn').addEventListener('click', function () { step(1); });
@@ -276,7 +288,7 @@
   main.addEventListener('click', function (e) {
     if (!(playing && mode === 'voice' && ss)) return;
     var t = e.target; if (!t || !t.closest) return;
-    if (t.closest('a,button,input,nav,.back')) return;
+    if (t.closest('a,button,input,nav,.back,.endbox')) return;
     var sel = window.getSelection && window.getSelection(); if (sel && String(sel).length > 0) return;
     var el = t.closest('h2,h3,p,.msg,.doc,li'); if (!el) return;
     var k = -1, i;
@@ -293,7 +305,62 @@
         for (i = 0; i < b.s.length; i++) { acc += b.s[i].length + 1; sIdx = i; if (acc / total > frac) break; }
       }
     } catch (x) {}
-    mark(false); bi = k; si2 = sIdx; jumped = true; tok++; clearTimeout(wt); ss.cancel(); toast('Reading from here'); setTimeout(speak, 60);
+    mark(false); follow = true; bi = k; si2 = sIdx; jumped = true; tok++; clearTimeout(wt); ss.cancel(); toast('Reading from here'); setTimeout(speak, 60);
   });
+
+  /* ---- you can scroll while it reads: auto-follow turns off when you scroll ---- */
+  function onUserScroll() { if (playing && mode === 'voice' && follow) { follow = false; syncChip(); } }
+  window.addEventListener('touchmove', onUserScroll, { passive: true });
+  window.addEventListener('wheel', onUserScroll, { passive: true });
+  $('vj').addEventListener('click', function () {
+    follow = true; syncChip();
+    var b = list[bi]; if (b) { try { b.el.scrollIntoView({ block: 'center', behavior: 'smooth' }); } catch (e) {} }
+  });
+
+  /* ---- end of episode: rating, share, next episode + anonymous completion tracking ---- */
+  (function () {
+    var T3 = Date.UTC(2026, 9, 16, 22, 0, 0), T4 = Date.UTC(2026, 9, 22, 22, 0, 0);
+    var NEXT = { 1: { n: 2, t: 0 }, 2: { n: 3, t: T3, label: 'Saturday 12:00 AM', ics: 'episode-3.ics' }, 3: { n: 4, t: T4, label: 'Friday 12:00 AM', ics: 'episode-4.ics' } };
+    var nx = NEXT[num], box = document.createElement('section'), nextHtml;
+    box.className = 'endbox';
+    if (!nx) nextHtml = '<p class="eb-n">The next episode is coming soon.</p>';
+    else if (Date.now() >= nx.t) nextHtml = '<a class="eb-go" href="episode-' + nx.n + '.html">Read Episode ' + nx.n + ' &rarr;</a>';
+    else nextHtml = '<p class="eb-n">Episode ' + nx.n + ' drops <b>' + nx.label + '</b> (Zambia time)</p><a class="eb-cal" href="' + nx.ics + '">&#128276; Add to calendar</a>';
+    box.innerHTML = '<h4>How was Episode ' + num + '?</h4><div class="eb-stars">' +
+      [1, 2, 3, 4, 5].map(function (i) { return '<button type="button" data-s="' + i + '" aria-label="' + i + ' stars">&#9733;</button>'; }).join('') +
+      '</div><p class="eb-m">Tap a star to rate</p><button type="button" class="eb-share">&#128228; Share Eclipse</button>' + nextHtml;
+    var tail = main.querySelector('p.back[style]'); if (tail) main.insertBefore(box, tail); else main.appendChild(box);
+
+    function send(o) { try { if (window.__eclSend) window.__eclSend(o); } catch (e) {} }
+    var sts = box.querySelectorAll('.eb-stars button'), msg = box.querySelector('.eb-m'), key = 'ecl-rate-' + num, mine = parseInt(ls(key) || '0', 10);
+    function paintStars(n) { for (var i = 0; i < sts.length; i++) sts[i].className = i < n ? 'on' : ''; }
+    if (mine) { paintStars(mine); msg.textContent = 'Thanks! You rated this ' + mine + ' \u2605'; }
+    for (var i = 0; i < sts.length; i++) sts[i].addEventListener('click', function () {
+      if (mine) return;
+      mine = parseInt(this.getAttribute('data-s'), 10); ls(key, String(mine)); paintStars(mine);
+      msg.textContent = 'Thanks! You rated this ' + mine + ' \u2605'; send({ ev: 'r' + num + 's' + mine });
+    });
+    box.querySelector('.eb-share').addEventListener('click', function () {
+      var url = location.origin + '/eclipse/', data = { title: 'Eclipse', text: 'I am reading Eclipse, an illustrated superhero novel by Wandile Shaw.', url: url };
+      if (navigator.share) { navigator.share(data).catch(function () {}); }
+      else if (navigator.clipboard && navigator.clipboard.writeText) { navigator.clipboard.writeText(url).then(function () { toast('Link copied'); }).catch(function () { toast(url); }); }
+      else toast(url);
+      send({ ev: 'sh' + num });
+    });
+
+    var seen = {};
+    function track(ev) { if (seen[ev]) return; seen[ev] = 1; send({ ev: ev }); }
+    if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) {
+        es.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          var t = en.target, id = t.id, m = id && id.match(/^c(\d+)$/);
+          if (m) track(pageId + 'c' + m[1]); else if (id === 'cold') track(pageId + 'c0'); else if (id === 'post') track(pageId + 'cp'); else if (t === box) track(pageId + 'done');
+        });
+      }, { threshold: 0.35 });
+      var hs = main.querySelectorAll('h2[id]'); for (var j = 0; j < hs.length; j++) io.observe(hs[j]);
+      io.observe(box);
+    }
+  })();
   window.__eclSplit = splitSentences;
 })();
