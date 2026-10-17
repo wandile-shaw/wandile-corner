@@ -92,7 +92,10 @@ footer{position:relative;z-index:2;text-align:center;color:var(--mute);font-size
 <script>
 (function(){
 var rd=document.getElementById('reader'),fr=document.getElementById('fr'),ready=false;
-var ep=0;function load(n){if(ep!==n){fr.src='episode-'+n+'.html';ep=n}}
+function load(n){var want='episode-'+n+'.html',cur='';try{cur=fr.contentWindow.location.pathname}catch(e){}
+if(cur.slice(-want.length)!==want){try{fr.contentWindow.location.replace(want)}catch(e){fr.src=want}}}
+// tapping the Contents list inside an episode must not add history entries either (that is what made Back jump to Episode 1)
+fr.addEventListener('load',function(){try{var d=fr.contentDocument;d.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var t=d.getElementById(a.getAttribute('href').slice(1));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}})}catch(x){}});
 function openEp(n,push){load(n);document.getElementById('rt').textContent='Eclipse \u00b7 Episode '+n;rd.classList.add('open');rd.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';if(push)history.pushState({r:n},'','#episode-'+n)}
 function shut(){try{fr.contentWindow.postMessage('stop',location.origin)}catch(e){}rd.classList.remove('open');rd.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 function back(){if(history.state&&history.state.r)history.back();else{shut();history.replaceState(null,'',location.pathname)}}
