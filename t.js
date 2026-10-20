@@ -47,6 +47,7 @@
       if (a) {
         var h2 = a.getAttribute('href') || '';
         if (h2.indexOf('instagram.com') > -1) ev = 'ig';
+        else if (h2.indexOf('tiktok.com') > -1) ev = 'tiktok';
         else if (h2.indexOf('chat.whatsapp.com') > -1) ev = 'shein';
         else if (h2.indexOf('mailto:') === 0) ev = 'mail';
         else if (a.classList.contains('hero')) ev = 'eclipse';
