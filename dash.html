@@ -62,7 +62,7 @@ function cname(c){if(!c||c==='XX')return'Unknown';if(c==='T1')return'Tor network
 function flag(c){if(!/^[A-Z]{2}$/.test(c||'')||c==='XX')return'\uD83C\uDF0D';return String.fromCodePoint(127397+c.charCodeAt(0),127397+c.charCodeAt(1))}
 var PAGE={home:'Internet Corner',eclipse:'Eclipse front page'};
 function pname(p){return PAGE[p]||(p.indexOf('ep')===0?'Episode '+p.slice(2):p)}
-var TAP={ig:'Instagram',shein:'Shein group',eclipse:'Eclipse card',mail:'Email',logo:'Logo (easter egg)'};
+var TAP={ig:'Instagram',tiktok:'TikTok',shein:'Shein group',eclipse:'Eclipse card',mail:'Email',logo:'Logo (easter egg)'};
 function bars(list,nameFn,valFn,unit){
   if(!list.length)return'<p class="none">Nothing yet.</p>';
   var max=Math.max.apply(null,list.map(valFn))||1;
