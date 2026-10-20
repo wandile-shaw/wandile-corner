@@ -98,6 +98,13 @@ animation:rise .8s ease both;position:relative;overflow:hidden;-webkit-tap-highl
 .how b{display:block;color:var(--glow);letter-spacing:.15em;font-size:12px;margin-bottom:8px}
 .how ol{padding-left:20px;line-height:1.7}
 .how li::marker{color:var(--glow)}
+.how details{margin-top:12px;border-top:1px solid rgba(88,178,255,.2);padding-top:10px}
+.how summary{cursor:pointer;list-style:none;color:var(--text);font-weight:600;font-size:13px;-webkit-tap-highlight-color:transparent}
+.how summary::-webkit-details-marker{display:none}
+.how summary::after{content:" \25BE";color:var(--glow)}
+.how details[open] summary::after{content:" \25B4"}
+.how .gk{margin:10px 0 0;line-height:1.55}
+.how .gk strong{color:var(--text)}
 footer{text-align:center;margin-top:44px;color:var(--mute);font-size:13px;line-height:1.7}
 footer span{color:var(--glow)}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
@@ -122,7 +129,7 @@ footer span{color:var(--glow)}
 <div class="ic"><img src="tiktok.png" alt="" width="30" height="30"></div><div><div class="name">TIKTOK</div><div class="sub">@wandile_shaw</div></div><div class="arrow">→</div></a>
 <a class="card" href="https://chat.whatsapp.com/F9p3T9QLKo22W7QhhTpszE?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener">
 <div class="ic">🛍️</div><div><div class="name">SHEIN ORDERS</div><div class="sub">Shein brand ambassador · Zambia only 🇿🇲</div><span class="st soon" id="st"><i></i><em>Orders open soon</em></span></div><div class="arrow">→</div></a>
-<div class="how"><b>HOW TO ORDER 🛍️</b><ol><li>Join the group</li><li>Place your order through the admins</li><li>We notify you when your order is made and when it lands</li><li>You send the payment to us</li></ol></div>
+<div class="how"><b>HOW TO ORDER 🛍️</b><ol><li>👥 Join the group</li><li>🛍️ Place your order through the admins</li><li>🔔 We notify you when your order is made and when it lands</li><li>💳 You send the payment to us</li></ol><details><summary>Payment, updates and refunds</summary><p class="gk">💳 <strong>Pay to:</strong> 0778237021 &middot; Winnie Palukani. Please don't send money to any other number.</p><p class="gk">📦 <strong>Updates:</strong> you'll get a message on the day your order is made and again on delivery day.</p><p class="gk">🤝 <strong>Refunds:</strong> if your item arrives damaged or wrong, or we can't place your order, you'll be refunded. Message the admins in the group.</p></details></div>
 <a class="card hero" href="/eclipse/">
 <div class="ic">🌙</div><div><div class="name">ECLIPSE</div><div class="sub">The illustrated superhero novel. Start reading.</div><span class="st open"><i></i><em>Episode 3 out now</em></span></div><div class="arrow">→</div></a>
 </section>
