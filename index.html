@@ -110,6 +110,18 @@ footer span{color:var(--glow)}
 @keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
 @media (min-width:760px){main{padding-top:84px}.cards{gap:20px}.card{min-height:96px}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+.lbl{font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:var(--glow);opacity:.85;margin:10px 4px -2px}.cards>.lbl:first-child{margin-top:0}
+header{margin-bottom:26px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.duo .card{flex-direction:column;justify-content:center;text-align:center;gap:10px;min-height:108px;padding:16px 10px}
+.duo .arrow{display:none}.duo .sub{font-size:12px;margin-top:2px}
+.duo .name{font-size:15px}
+.cards{gap:12px}
+.card{min-height:72px;padding:16px 18px;border-radius:16px}
+.hero{min-height:92px}
+.how{margin:-4px 4px 0}
+.cards>.hero{min-height:210px;align-items:flex-end;padding:20px;background:linear-gradient(0deg,rgba(2,4,10,.96) 8%,rgba(2,4,10,.35) 65%,rgba(2,4,10,.1)),url(/eclipse/p0.jpg) 50% 18%/cover;border-color:var(--glow);box-shadow:0 12px 36px rgba(0,0,0,.8),0 0 34px rgba(47,139,255,.4)}
+.hero .ic{display:none}.hero .name{font-size:26px;letter-spacing:.18em}
 </style>
 </head>
 <body>
@@ -123,13 +135,18 @@ footer span{color:var(--glow)}
 </header>
 
 <section class="cards">
+<div class="lbl">Follow</div>
+<div class="duo">
 <a class="card" href="https://www.instagram.com/wandile_shaw/" target="_blank" rel="noopener">
 <div class="ic"><img src="ig.png" alt="" width="30" height="30"></div><div><div class="name">INSTAGRAM</div><div class="sub">@wandile_shaw</div></div><div class="arrow">→</div></a>
 <a class="card" href="https://www.tiktok.com/@wandile_shaw" target="_blank" rel="noopener">
 <div class="ic"><img src="tiktok.png" alt="" width="30" height="30"></div><div><div class="name">TIKTOK</div><div class="sub">@wandile_shaw</div></div><div class="arrow">→</div></a>
+</div>
+<div class="lbl">Shop</div>
 <a class="card" href="https://chat.whatsapp.com/F9p3T9QLKo22W7QhhTpszE?s=cl&amp;p=i&amp;mlu=4&amp;ilr=4" target="_blank" rel="noopener">
 <div class="ic">🛍️</div><div><div class="name">SHEIN ORDERS</div><div class="sub">Shein brand ambassador · Zambia only 🇿🇲</div><span class="st soon" id="st"><i></i><em>Orders open soon</em></span></div><div class="arrow">→</div></a>
 <div class="how"><b>HOW TO ORDER 🛍️</b><ol><li>👥 Join the group</li><li>🛍️ Place your order through the admins</li><li>🔔 We notify you when your order is made and when it lands</li><li>💳 You send the payment to us</li></ol><details><summary>Payment, updates and refunds</summary><p class="gk">💳 <strong>Pay to:</strong> 0778237021 &middot; Winnie Palukani. Please don't send money to any other number.</p><p class="gk">📦 <strong>Updates:</strong> you'll get a message on the day your order is made and again on delivery day.</p><p class="gk">🤝 <strong>Refunds:</strong> if your item arrives damaged or wrong, or we can't place your order, you'll be refunded. Message the admins in the group.</p></details></div>
+<div class="lbl">Read</div>
 <a class="card hero" href="/eclipse/">
 <div class="ic">🌙</div><div><div class="name">ECLIPSE</div><div class="sub">The illustrated superhero novel. Start reading.</div><span class="st open"><i></i><em>Part 4 out now</em></span></div><div class="arrow">→</div></a>
 </section>
