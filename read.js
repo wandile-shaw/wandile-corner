@@ -44,8 +44,8 @@
   /* ---------- DOM ---------- */
   var ui = document.createElement('div');
   ui.innerHTML =
-    '<button id="sf" type="button" aria-label="Search this episode">&#128269;</button>' +
-    '<div id="sr"><input id="sq" type="search" placeholder="Search this episode" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false"><span id="sc"></span><button id="sp" type="button" aria-label="Previous">&#9650;</button><button id="sn" type="button" aria-label="Next">&#9660;</button><button id="sx" type="button" aria-label="Close">&#10005;</button></div>' +
+    '<button id="sf" type="button" aria-label="Search this part">&#128269;</button>' +
+    '<div id="sr"><input id="sq" type="search" placeholder="Search this part" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false"><span id="sc"></span><button id="sp" type="button" aria-label="Previous">&#9650;</button><button id="sn" type="button" aria-label="Next">&#9660;</button><button id="sx" type="button" aria-label="Close">&#10005;</button></div>' +
     '<button id="vc" type="button">&#8617; Continue where you left off</button>' +
     '<button id="vj" type="button">&#8615; Back to where it\'s reading</button>' +
     '<div id="vt"></div>' +
@@ -141,7 +141,7 @@
   } catch (e) {}
   function msSet() {
     if (!('mediaSession' in navigator) || typeof MediaMetadata === 'undefined') return;
-    navigator.mediaSession.metadata = new MediaMetadata({ title: 'Eclipse \u00b7 Episode ' + num, artist: 'Wandile Shaw', album: 'Eclipse', artwork: [{ src: '/eclipse/p0.jpg', sizes: '1536x1024', type: 'image/jpeg' }] });
+    navigator.mediaSession.metadata = new MediaMetadata({ title: 'Eclipse \u00b7 Volume 1 \u00b7 Part ' + num, artist: 'Wandile Shaw', album: 'Eclipse', artwork: [{ src: '/eclipse/p0.jpg', sizes: '1536x1024', type: 'image/jpeg' }] });
     var h = function (a, f) { try { navigator.mediaSession.setActionHandler(a, f); } catch (e) {} };
     h('play', function () { audPlay(); });
     h('pause', function () { audPause(); });
@@ -323,10 +323,10 @@
     var NEXT = { 1: { n: 2, t: 0 }, 2: { n: 3, t: T3, label: 'Saturday 12:00 AM', ics: 'episode-3.ics' }, 3: { n: 4, t: T4, label: 'Friday 12:00 AM', ics: 'episode-4.ics' } };
     var nx = NEXT[num], box = document.createElement('section'), nextHtml;
     box.className = 'endbox';
-    if (!nx) nextHtml = '<p class="eb-n">The next episode is coming soon.</p>';
-    else if (Date.now() >= nx.t) nextHtml = '<a class="eb-go" href="episode-' + nx.n + '.html">Read Episode ' + nx.n + ' &rarr;</a>';
-    else nextHtml = '<p class="eb-n">Episode ' + nx.n + ' drops <b>' + nx.label + '</b> (Zambia time)</p><a class="eb-cal" href="' + nx.ics + '">&#128276; Add to calendar</a>';
-    box.innerHTML = '<h4>How was Episode ' + num + '?</h4><div class="eb-stars">' +
+    if (!nx) nextHtml = '<p class="eb-n">The next part is coming soon.</p>';
+    else if (Date.now() >= nx.t) nextHtml = '<a class="eb-go" href="episode-' + nx.n + '.html">Read Part ' + nx.n + ' &rarr;</a>';
+    else nextHtml = '<p class="eb-n">Part ' + nx.n + ' drops <b>' + nx.label + '</b> (Zambia time)</p><a class="eb-cal" href="' + nx.ics + '">&#128276; Add to calendar</a>';
+    box.innerHTML = '<h4>How was Part ' + num + '?</h4><div class="eb-stars">' +
       [1, 2, 3, 4, 5].map(function (i) { return '<button type="button" data-s="' + i + '" aria-label="' + i + ' stars">&#9733;</button>'; }).join('') +
       '</div><p class="eb-m">Tap a star to rate</p><button type="button" class="eb-share">&#128228; Share Eclipse</button>' + nextHtml;
     var tail = main.querySelector('p.back[style]'); if (tail) main.insertBefore(box, tail); else main.appendChild(box);
