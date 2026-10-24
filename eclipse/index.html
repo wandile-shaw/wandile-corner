@@ -5,10 +5,10 @@
 <title>ECLIPSE | An illustrated superhero novel by Wandile Shaw</title>
 <link rel="canonical" href="https://wandile-corner.wandile-shaw.workers.dev/eclipse/">
 <meta property="og:title" content="ECLIPSE: an illustrated superhero novel">
-<meta property="og:description" content="Read Eclipse, an illustrated superhero novel by Wandile Shaw. Episodes 1 to 4 are out now. New episode every Friday.">
+<meta property="og:description" content="Read Eclipse, an illustrated superhero novel by Wandile Shaw. Parts 1 to 4 are out now. New part every Friday.">
 <meta property="og:image" content="https://wandile-corner.wandile-shaw.workers.dev/eclipse/p0.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="description" content="Eclipse is an illustrated superhero novel by Wandile Shaw. Read Episodes 1 to 4 free online.">
+<meta name="description" content="Eclipse is an illustrated superhero novel by Wandile Shaw. Read Parts 1 to 4 free online.">
 <style>
 :root{--bg:#050816;--ink:#e6eeff;--mute:#8d9bc4;--acc:#7fb0ff;--card:#0d1430;--line:#1f2c5c;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box;margin:0}
@@ -20,7 +20,7 @@ body{background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,"
 @keyframes drift{from{transform:scale(1.03)}to{transform:scale(1.12) translateY(-10px)}}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,var(--bg) 97%),radial-gradient(circle at 50% 0%,rgba(47,139,255,.22),transparent 60%)}
 .t{position:relative;z-index:2;padding:0 20px 22px}
-h1{font-size:clamp(44px,15vw,80px);letter-spacing:.28em;text-indent:.28em;font-weight:800;line-height:1;background:linear-gradient(90deg,#fff 0,#8fc0ff 35%,#fff 50%,#8fc0ff 65%,#fff 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(88,178,255,.85));animation:shine 7s linear infinite}
+h1{font-size:clamp(36px,12vw,80px);letter-spacing:.22em;text-indent:.22em;font-weight:800;line-height:1;background:linear-gradient(90deg,#fff 0,#8fc0ff 35%,#fff 50%,#8fc0ff 65%,#fff 100%);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 18px rgba(88,178,255,.85));animation:shine 7s linear infinite}
 @keyframes shine{to{background-position:-220% 0}}
 .t p{margin-top:12px;color:#b9c9ef;letter-spacing:.3em;font-size:12px;text-transform:uppercase}
 main{position:relative;z-index:2;max-width:560px;margin:0 auto;padding:6px 20px 36px}
@@ -72,24 +72,44 @@ footer{position:relative;z-index:2;text-align:center;color:var(--mute);font-size
 .acts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:14px 0 0}
 .acts a,.acts button{font:600 13px system-ui,sans-serif;color:var(--ink);background:var(--card);border:1px solid rgba(88,178,255,.4);border-radius:12px;padding:11px 14px;text-decoration:none;cursor:pointer;-webkit-tap-highlight-color:transparent}
 .acts a:active,.acts button:active{background:#1b3a7a}
+.intro{text-align:center;margin:4px 0 26px}
+.pitch{color:#cfdcff;font-size:17px;line-height:1.6;margin:0 auto 18px;max-width:420px}
+.cta{display:block;width:100%;padding:16px;border-radius:14px;background:linear-gradient(135deg,#2f6bff,#58b2ff);color:#fff;text-decoration:none;font:700 16px system-ui,sans-serif;letter-spacing:.05em;box-shadow:0 10px 26px rgba(47,139,255,.45);-webkit-tap-highlight-color:transparent}
+.cta:active{transform:scale(.98)}
+.cta small{display:block;font:500 12px system-ui,sans-serif;opacity:.9;margin-top:4px;letter-spacing:.03em}
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.cards .ep{flex-direction:column;align-items:stretch;gap:0;margin:0;padding:0;overflow:hidden;animation:rise .7s ease both}
+.cards .ep.new{animation:rise .7s ease both,glow 3.4s ease-in-out 1s infinite}
+.cards .th{width:100%;height:auto;aspect-ratio:3/2;border:0;border-radius:0;border-bottom:1px solid rgba(88,178,255,.35);background-position:50% 30%}
+.cards .ep>div:not(.th){padding:12px 12px 14px;flex:1}
+.cards .go{display:none}
+.cards .ti{font-size:16px;line-height:1.25;margin:3px 0 10px}
+.cards .chip{font-size:10px;letter-spacing:.08em;padding:5px 8px;white-space:nowrap}
+.cards .lock .th{font-size:32px}
+.cards .red{width:80%;height:18px;margin:8px 0 10px}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style></head><body>
 <canvas id="rain"></canvas>
 <section class="hero"><img src="p0.jpg" alt="Eclipse crouching on a rooftop at night">
 <div class="t"><h1>ECLIPSE</h1><p>An illustrated superhero novel</p></div></section>
 <main>
-<h2>Choose your episode</h2>
-<a class="ep" href="#episode-1" id="ep1"><div class="th" style="background-image:url(p0.jpg)"></div><div><div class="n">EPISODE 1</div><div class="ti">The Other Life</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
-<a class="ep" href="#episode-2" id="ep2"><div class="th" style="background-image:url(e2-01.jpg)"></div><div><div class="n">EPISODE 2</div><div class="ti">Loose Ends</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
-<a class="ep" href="#episode-3" id="ep3"><div class="th" style="background-image:url(e3-12.jpg)"></div><div><div class="n">EPISODE 3</div><div class="ti">The Man Who Disappeared</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
-<a class="ep" href="#episode-4" id="ep4"><div class="th" style="background-image:url(e4-04.jpg)"></div><div><div class="n">EPISODE 4</div><div class="ti">The Things We Leave Behind</div><span class="chip live"><i></i>Latest &middot; Out now</span></div><div class="go">&rarr;</div></a>
-<div class="ep lock"><div class="th">&#128274;</div><div style="flex:1"><div class="n">EPISODE 5</div><span class="red"></span><span class="chip dev"><i></i>Coming soon</span></div></div>
-<div class="sched"><b>New episode every Friday at midnight.</b></div>
+<div class="intro"><p class="pitch">An ordinary student.<br>A company everyone trusts.<br>One pattern that doesn't add up.</p><a class="cta" id="start" href="#episode-1">Start reading<small>Volume 1 &middot; Part 1 &middot; The Other Life</small></a></div>
+<h2>Volume 1</h2>
+<div class="cards">
+<a class="ep" href="#episode-1" id="ep1"><div class="th" style="background-image:url(p0.jpg)"></div><div><div class="n">PART 1</div><div class="ti">The Other Life</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
+<a class="ep" href="#episode-2" id="ep2"><div class="th" style="background-image:url(e2-01.jpg)"></div><div><div class="n">PART 2</div><div class="ti">Loose Ends</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
+<a class="ep" href="#episode-3" id="ep3"><div class="th" style="background-image:url(e3-12.jpg)"></div><div><div class="n">PART 3</div><div class="ti">The Man Who Disappeared</div><span class="chip live"><i></i>Read now</span></div><div class="go">&rarr;</div></a>
+<a class="ep new" href="#episode-4" id="ep4"><div class="th" style="background-image:url(e4-04.jpg)"></div><div><div class="n">PART 4</div><div class="ti">The Things We Leave Behind</div><span class="chip live"><i></i>Latest &middot; Out now</span></div><div class="go">&rarr;</div></a>
+<div class="ep lock"><div class="th">&#128274;</div><div style="flex:1"><div class="n">PART 5</div><span class="red"></span><span class="chip dev"><i></i>Coming soon</span></div></div>
+</div>
+<h2 style="margin-top:30px">Volume 2</h2>
+<div class="ep lock"><div class="th">&#128274;</div><div style="flex:1"><div class="n">VOLUME 2</div><span class="red"></span><span class="chip soon">Coming later</span></div></div>
+<div class="sched"><b>New part every Friday at midnight.</b></div>
 <div class="acts"><a id="wach" target="_blank" rel="noopener" href="#" hidden>&#128276; Get updates on WhatsApp</a><button type="button" id="shr">&#128279; Share Eclipse</button></div>
 <div class="rate" id="rate" hidden><h2>Rate Eclipse</h2><div class="stars" id="stars"><button type="button" data-s="1" aria-label="1 star">&#9733;</button><button type="button" data-s="2" aria-label="2 stars">&#9733;</button><button type="button" data-s="3" aria-label="3 stars">&#9733;</button><button type="button" data-s="4" aria-label="4 stars">&#9733;</button><button type="button" data-s="5" aria-label="5 stars">&#9733;</button></div><p id="rmsg"></p></div>
 </main>
 <footer><a href="/" style="color:inherit;text-decoration:none">&larr; Wandile's Internet Corner</a><br>&copy; Wandile</footer>
-<div id="reader" aria-hidden="true"><div id="rbar"><button id="rb" type="button">&larr; Episodes</button><span id="rt">Eclipse &middot; Episode 1</span></div><iframe id="fr" title="Eclipse episode"></iframe></div>
+<div id="reader" aria-hidden="true"><div id="rbar"><button id="rb" type="button">&larr; Parts</button><span id="rt">Volume 1 &middot; Part 1</span></div><iframe id="fr" title="Eclipse part"></iframe></div>
 <script>
 (function(){
 var rd=document.getElementById('reader'),fr=document.getElementById('fr'),ready=false;
@@ -97,11 +117,14 @@ function load(n){var want='episode-'+n+'.html',cur='';try{cur=fr.contentWindow.l
 if(cur.slice(-want.length)!==want){try{fr.contentWindow.location.replace(want)}catch(e){fr.src=want}}}
 // tapping the Contents list inside an episode must not add history entries either (that is what made Back jump to Episode 1)
 fr.addEventListener('load',function(){try{var d=fr.contentDocument;d.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var t=d.getElementById(a.getAttribute('href').slice(1));if(t){e.preventDefault();t.scrollIntoView({behavior:'smooth'})}})}catch(x){}});
-function openEp(n,push){load(n);document.getElementById('rt').textContent='Eclipse \u00b7 Episode '+n;rd.classList.add('open');rd.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';if(push)history.pushState({r:n},'','#episode-'+n)}
+function openEp(n,push){try{localStorage.setItem('ecl-last',n)}catch(e){}load(n);document.getElementById('rt').textContent='Volume 1 \u00b7 Part '+n;rd.classList.add('open');rd.setAttribute('aria-hidden','false');document.body.style.overflow='hidden';if(push)history.pushState({r:n},'','#episode-'+n)}
 function shut(){try{fr.contentWindow.postMessage('stop',location.origin)}catch(e){}rd.classList.remove('open');rd.setAttribute('aria-hidden','true');document.body.style.overflow=''}
 function back(){if(history.state&&history.state.r)history.back();else{shut();history.replaceState(null,'',location.pathname)}}
 [1,2,3,4].forEach(function(n){document.getElementById('ep'+n).addEventListener('click',function(e){e.preventDefault();openEp(n,true)})});
 document.getElementById('rb').addEventListener('click',back);
+var st=document.getElementById('start'),last=0;try{last=+localStorage.getItem('ecl-last')||0}catch(e){}
+if(last>=1){st.firstChild.nodeValue='Continue reading';st.querySelector('small').innerHTML='Volume 1 &middot; Part '+last}
+st.addEventListener('click',function(e){e.preventDefault();openEp(last||1,true)});
 addEventListener('popstate',function(){var m=location.hash.match(/^#episode-(\d)$/);m?openEp(+m[1],false):shut()});
 addEventListener('message',function(e){if(e.source===fr.contentWindow&&e.data==='close')back()});
 addEventListener('load',function(){var m=location.hash.match(/^#episode-(\d)$/);if(m)openEp(+m[1],false);else setTimeout(function(){try{fetch('episode-1.html')}catch(e){}},900)});
