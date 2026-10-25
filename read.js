@@ -320,7 +320,7 @@
   /* ---- end of episode: rating, share, next episode + anonymous completion tracking ---- */
   (function () {
     var T3 = Date.UTC(2026, 9, 16, 22, 0, 0), T4 = Date.UTC(2026, 9, 22, 22, 0, 0);
-    var NEXT = { 1: { n: 2, t: 0 }, 2: { n: 3, t: T3, label: 'Saturday 12:00 AM', ics: 'episode-3.ics' }, 3: { n: 4, t: T4, label: 'Friday 12:00 AM', ics: 'episode-4.ics' } };
+    var NEXT = { 1: { n: 2, t: 0 }, 2: { n: 3, t: T3, label: 'Saturday 12:00 AM', ics: 'episode-3.ics' }, 3: { n: 4, t: T4, label: 'Friday 12:00 AM', ics: 'episode-4.ics' }, 4: { n: 5, t: 0 } };
     var nx = NEXT[num], box = document.createElement('section'), nextHtml;
     box.className = 'endbox';
     if (!nx) nextHtml = '<p class="eb-n">The next part is coming soon.</p>';
