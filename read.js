@@ -320,7 +320,7 @@
   /* ---- end of episode: rating, share, next episode + anonymous completion tracking ---- */
   (function () {
     var T3 = Date.UTC(2026, 9, 16, 22, 0, 0), T4 = Date.UTC(2026, 9, 22, 22, 0, 0);
-    var NEXT = { 1: { n: 2, t: 0 }, 2: { n: 3, t: T3, label: 'Saturday 12:00 AM', ics: 'episode-3.ics' }, 3: { n: 4, t: T4, label: 'Friday 12:00 AM', ics: 'episode-4.ics' }, 4: { n: 5, t: 0 }, 5: { n: 6, t: 0 } };
+    var NEXT = { 1: { n: 2, t: 0 }, 2: { n: 3, t: T3, label: 'Saturday 12:00 AM', ics: 'episode-3.ics' }, 3: { n: 4, t: T4, label: 'Friday 12:00 AM', ics: 'episode-4.ics' }, 4: { n: 5, t: 0 }, 5: { n: 6, t: 0 }, 6: { n: 7, t: 0 } };
     var nx = NEXT[num], box = document.createElement('section'), nextHtml;
     box.className = 'endbox';
     if (!nx) nextHtml = '<p class="eb-n">The next part is coming soon.</p>';
@@ -363,4 +363,148 @@
     }
   })();
   window.__eclSplit = splitSentences;
+})();
+
+/* ---- Tap a picture to open it full screen. Swipe left/right for the other pictures, pinch or double-tap to zoom, swipe down or tap X to close. ---- */
+(function () {
+  var main = document.querySelector('main');
+  if (!main) return;
+  var css = document.createElement('style');
+  css.textContent =
+    'main img{cursor:zoom-in;-webkit-tap-highlight-color:transparent}' +
+    '#lb{position:fixed;left:0;top:0;right:0;bottom:0;z-index:100;background:#02040a;display:none;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}' +
+    '#lb.on{display:block}' +
+    '#lb img{position:absolute;left:0;top:0;max-width:none;margin:0;transform-origin:0 0;will-change:transform;-webkit-user-drag:none;cursor:default}' +
+    '#lb button{position:absolute;z-index:2;border-radius:50%;border:1px solid rgba(88,178,255,.55);background:rgba(8,13,32,.88);color:#e6eeff;font:28px/1 system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:0;-webkit-tap-highlight-color:transparent}' +
+    '#lbx{top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;width:46px;height:46px}' +
+    '#lbp,#lbn{top:50%;margin-top:-20px;width:40px;height:40px;font-size:26px;opacity:.85}' +
+    '#lbp{left:8px}#lbn{right:8px}' +
+    '#lbc{position:absolute;z-index:2;top:calc(env(safe-area-inset-top,0px) + 24px);left:16px;font:600 14px system-ui,sans-serif;letter-spacing:.12em;color:#9fb4dd}';
+  document.head.appendChild(css);
+
+  var lb = document.createElement('div'); lb.id = 'lb';
+  var im = document.createElement('img'); im.alt = '';
+  function btn(id, label, html) { var b = document.createElement('button'); b.id = id; b.type = 'button'; b.setAttribute('aria-label', label); b.innerHTML = html; return b; }
+  var bx = btn('lbx', 'Close', '&times;'), bp = btn('lbp', 'Previous picture', '&lsaquo;'), bn = btn('lbn', 'Next picture', '&rsaquo;');
+  var ct = document.createElement('div'); ct.id = 'lbc';
+  lb.appendChild(im); lb.appendChild(ct); lb.appendChild(bp); lb.appendChild(bn); lb.appendChild(bx); document.body.appendChild(lb);
+
+  var imgs = [], cur = 0, W = 0, H = 0, bw = 0, bh = 0, s = 1, x = 0, y = 0, dx0 = 0, MAX = 5;
+  var g = null, lastTap = 0, busy = false;
+
+  function clamp() {
+    var w = bw * s, h = bh * s;
+    x = w <= W ? (W - w) / 2 : Math.min(0, Math.max(W - w, x));
+    y = h <= H ? (H - h) / 2 : Math.min(0, Math.max(H - h, y));
+  }
+  function draw() { clamp(); im.style.transform = 'translate(' + (x + dx0) + 'px,' + y + 'px) scale(' + s + ')'; }
+  function fit() {
+    W = lb.clientWidth; H = lb.clientHeight;
+    var nw = im.naturalWidth || 1, nh = im.naturalHeight || 1, r = Math.min(W / nw, H / nh);
+    bw = nw * r; bh = nh * r; im.style.width = bw + 'px'; im.style.height = bh + 'px';
+    s = 1; x = 0; y = 0; dx0 = 0; draw();
+  }
+  function zoomAt(ns, cx, cy) {
+    ns = Math.min(MAX, Math.max(1, ns));
+    var px = (cx - x) / s, py = (cy - y) / s;
+    s = ns; x = cx - px * s; y = cy - py * s; draw();
+  }
+  function ui() {
+    ct.textContent = imgs.length > 1 ? (cur + 1) + ' / ' + imgs.length : '';
+    bp.style.display = cur > 0 ? 'flex' : 'none';
+    bn.style.display = cur < imgs.length - 1 ? 'flex' : 'none';
+  }
+  function src(p) { return p.currentSrc || p.src; }
+  function load(i) {
+    cur = i; ui();
+    im.style.visibility = 'hidden';
+    im.onload = function () { im.style.transition = 'none'; im.style.opacity = 1; fit(); im.style.visibility = 'visible'; };
+    im.src = src(imgs[i]);
+    if (im.complete && im.naturalWidth) im.onload();
+    [i - 1, i + 1].forEach(function (k) { if (imgs[k]) { var pre = new Image(); pre.src = src(imgs[k]); } });
+  }
+  function open(p) {
+    imgs = [].filter.call(main.querySelectorAll('img'), function (q) { return !q.closest('.endbox'); });
+    var i = imgs.indexOf(p); if (i < 0) { imgs = [p]; i = 0; }
+    lb.className = 'on'; busy = false; load(i);
+  }
+  function close() { lb.className = ''; im.removeAttribute('src'); g = null; }
+  function go(d) {
+    var n = cur + d; if (busy || n < 0 || n >= imgs.length) { snap(); return; }
+    busy = true;
+    im.style.transition = 'transform .14s ease-in, opacity .14s';
+    dx0 = -d * W * 0.4; im.style.opacity = 0; draw();
+    setTimeout(function () { busy = false; load(n); }, 150);
+  }
+  function snap() {
+    im.style.transition = 'transform .16s ease'; dx0 = 0; draw();
+    setTimeout(function () { im.style.transition = 'none'; }, 180);
+  }
+
+  main.addEventListener('click', function (e) {
+    var t = e.target; if (!t.closest) return;
+    var p = t.closest('img'); if (!p || p.closest('.endbox')) return;
+    open(p);
+  });
+  bx.addEventListener('click', function (e) { e.stopPropagation(); close(); });
+  bp.addEventListener('click', function (e) { e.stopPropagation(); go(-1); });
+  bn.addEventListener('click', function (e) { e.stopPropagation(); go(1); });
+  lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
+  document.addEventListener('keydown', function (e) {
+    if (lb.className !== 'on') return;
+    if (e.key === 'Escape') close(); else if (e.key === 'ArrowRight') go(1); else if (e.key === 'ArrowLeft') go(-1);
+  });
+  window.addEventListener('resize', function () { if (lb.className === 'on') fit(); });
+
+  function isBtn(e) { return e.target.closest && e.target.closest('button'); }
+  function pt(e) {
+    var a = e.touches;
+    if (a.length >= 2) return { n: 2, cx: (a[0].clientX + a[1].clientX) / 2, cy: (a[0].clientY + a[1].clientY) / 2, d: Math.hypot(a[0].clientX - a[1].clientX, a[0].clientY - a[1].clientY) };
+    return { n: 1, cx: a[0].clientX, cy: a[0].clientY, d: 0 };
+  }
+  function start(p, moved, t) { return { n: p.n, cx: p.cx, cy: p.cy, d: p.d, s: s, x: x, y: y, sx: p.cx, sy: p.cy, moved: moved, t: t, axis: '', dy: 0 }; }
+
+  lb.addEventListener('touchstart', function (e) {
+    if (isBtn(e) || busy) return;
+    im.style.transition = 'none';
+    g = start(pt(e), false, Date.now());
+  }, { passive: true });
+  lb.addEventListener('touchmove', function (e) {
+    if (!g || isBtn(e) || busy) return;
+    e.preventDefault();
+    var p = pt(e);
+    if (p.n !== g.n) { g = start(p, true, g.t); return; }
+    var mx = p.cx - g.sx, my = p.cy - g.sy;
+    if (Math.abs(mx) + Math.abs(my) > 8) g.moved = true;
+    if (p.n === 2) {
+      var ns = Math.min(MAX, Math.max(1, g.s * p.d / g.d));
+      var px = (g.cx - g.x) / g.s, py = (g.cy - g.y) / g.s;
+      s = ns; x = p.cx - px * s; y = p.cy - py * s; draw();
+    } else if (s > 1.02) {
+      x = g.x + (p.cx - g.cx); y = g.y + (p.cy - g.cy); draw();
+    } else {
+      if (!g.axis && (Math.abs(mx) > 10 || Math.abs(my) > 10)) g.axis = Math.abs(mx) > Math.abs(my) ? 'x' : 'y';
+      if (g.axis === 'x') {
+        var edge = (cur === 0 && mx > 0) || (cur === imgs.length - 1 && mx < 0);
+        dx0 = edge ? mx * 0.25 : mx; draw();
+      } else if (g.axis === 'y') { g.dy = my; }
+    }
+  }, { passive: false });
+  lb.addEventListener('touchend', function (e) {
+    if (!g) return;
+    if (e.touches.length) { g = start(pt(e), true, g.t); return; }
+    var gg = g; g = null;
+    if (isBtn(e) || busy) return;
+    if (s > 1.02 || gg.n === 2) { return; }
+    if (gg.axis === 'x') {
+      if (dx0 < -60) go(1); else if (dx0 > 60) go(-1); else snap();
+    } else if (gg.axis === 'y') {
+      if (gg.dy > 110) close();
+    } else if (!gg.moved) {
+      var now = Date.now();
+      if (now - lastTap < 320) { zoomAt(s > 1.05 ? 1 : 2.5, gg.sx, gg.sy); lastTap = 0; }
+      else lastTap = now;
+    }
+  }, { passive: true });
+  lb.addEventListener('wheel', function (e) { e.preventDefault(); zoomAt(s * (e.deltaY < 0 ? 1.2 : 1 / 1.2), e.clientX, e.clientY); }, { passive: false });
 })();
