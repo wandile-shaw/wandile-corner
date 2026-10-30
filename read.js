@@ -377,17 +377,15 @@
     '#lb img{position:absolute;left:0;top:0;max-width:none;margin:0;transform-origin:0 0;will-change:transform;-webkit-user-drag:none;cursor:default}' +
     '#lb button{position:absolute;z-index:2;border-radius:50%;border:1px solid rgba(88,178,255,.55);background:rgba(8,13,32,.88);color:#e6eeff;font:28px/1 system-ui,sans-serif;display:flex;align-items:center;justify-content:center;padding:0;-webkit-tap-highlight-color:transparent}' +
     '#lbx{top:calc(env(safe-area-inset-top,0px) + 12px);right:12px;width:46px;height:46px}' +
-    '#lbp,#lbn{top:50%;margin-top:-20px;width:40px;height:40px;font-size:26px;opacity:.85}' +
-    '#lbp{left:8px}#lbn{right:8px}' +
     '#lbc{position:absolute;z-index:2;top:calc(env(safe-area-inset-top,0px) + 24px);left:16px;font:600 14px system-ui,sans-serif;letter-spacing:.12em;color:#9fb4dd}';
   document.head.appendChild(css);
 
   var lb = document.createElement('div'); lb.id = 'lb';
   var im = document.createElement('img'); im.alt = '';
   function btn(id, label, html) { var b = document.createElement('button'); b.id = id; b.type = 'button'; b.setAttribute('aria-label', label); b.innerHTML = html; return b; }
-  var bx = btn('lbx', 'Close', '&times;'), bp = btn('lbp', 'Previous picture', '&lsaquo;'), bn = btn('lbn', 'Next picture', '&rsaquo;');
+  var bx = btn('lbx', 'Close', '&times;');
   var ct = document.createElement('div'); ct.id = 'lbc';
-  lb.appendChild(im); lb.appendChild(ct); lb.appendChild(bp); lb.appendChild(bn); lb.appendChild(bx); document.body.appendChild(lb);
+  lb.appendChild(im); lb.appendChild(ct); lb.appendChild(bx); document.body.appendChild(lb);
 
   var imgs = [], cur = 0, W = 0, H = 0, bw = 0, bh = 0, s = 1, x = 0, y = 0, dx0 = 0, MAX = 5;
   var g = null, lastTap = 0, busy = false;
@@ -411,8 +409,6 @@
   }
   function ui() {
     ct.textContent = imgs.length > 1 ? (cur + 1) + ' / ' + imgs.length : '';
-    bp.style.display = cur > 0 ? 'flex' : 'none';
-    bn.style.display = cur < imgs.length - 1 ? 'flex' : 'none';
   }
   function src(p) { return p.currentSrc || p.src; }
   function load(i) {
@@ -447,8 +443,6 @@
     open(p);
   });
   bx.addEventListener('click', function (e) { e.stopPropagation(); close(); });
-  bp.addEventListener('click', function (e) { e.stopPropagation(); go(-1); });
-  bn.addEventListener('click', function (e) { e.stopPropagation(); go(1); });
   lb.addEventListener('click', function (e) { if (e.target === lb) close(); });
   document.addEventListener('keydown', function (e) {
     if (lb.className !== 'on') return;
