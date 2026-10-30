@@ -31,6 +31,7 @@ h1{font-size:20px;letter-spacing:.14em}
 .none{color:var(--mute);font-size:13px}
 input,button{font:inherit;color:var(--text);background:#0d1430;border:1px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
 button{margin-top:10px;background:var(--blue);border:0;font-weight:700}
+#pages .bar,#taps .bar{flex-basis:22%}
 #login{margin-top:26vh}
 #err{color:#ff8a8a;font-size:13px;margin-top:8px}
 </style></head><body>
@@ -45,6 +46,7 @@ button{margin-top:10px;background:var(--blue);border:0;font-weight:700}
 <div class="card"><h2>People who visited</h2><div class="grid" id="per"></div></div>
 <div class="card"><h2>Last 14 days (people per day)</h2><div class="chart" id="chart"></div></div>
 <div class="card"><h2>Pages (last 30 days)</h2><div id="pages"></div></div>
+<div class="card"><h2>Reading progress (last 30 days)</h2><div id="prog"></div></div>
 <div class="card"><h2>Countries (last 30 days)</h2><div id="countries"></div></div>
 <div class="card"><h2>Where they came from</h2><div id="sources"></div></div>
 <div class="card"><h2>Devices</h2><div id="devices"></div></div>
@@ -61,8 +63,9 @@ var dn=null;try{dn=new Intl.DisplayNames(['en'],{type:'region'})}catch(e){}
 function cname(c){if(!c||c==='XX')return'Unknown';if(c==='T1')return'Tor network';try{return dn?dn.of(c):c}catch(e){return c}}
 function flag(c){if(!/^[A-Z]{2}$/.test(c||'')||c==='XX')return'\uD83C\uDF0D';return String.fromCodePoint(127397+c.charCodeAt(0),127397+c.charCodeAt(1))}
 var PAGE={home:'Internet Corner',eclipse:'Eclipse front page'};
-function pname(p){return PAGE[p]||(p.indexOf('ep')===0?'Episode '+p.slice(2):p)}
+function pname(p){return PAGE[p]||(/^ep\d+$/.test(p)?'V1 \u00b7 Part '+p.slice(2):p)}
 var TAP={ig:'Instagram',tiktok:'TikTok',shein:'Shein group',eclipse:'Eclipse card',mail:'Email',logo:'Logo (easter egg)'};
+function tname(k){var m=/^ep(\d+)(c(\d+)|cp|done)$/.exec(k);if(!m)return TAP[k]||k;var h='Part '+m[1]+' \u00b7 ';if(m[2]==='done')return h+'finished';if(m[2]==='cp')return h+'after the credits';return h+(m[3]==='0'?'cold open':'chapter '+m[3])}
 function bars(list,nameFn,valFn,unit){
   if(!list.length)return'<p class="none">Nothing yet.</p>';
   var max=Math.max.apply(null,list.map(valFn))||1;
@@ -78,10 +81,14 @@ function render(d){
   var mx=Math.max.apply(null,days.map(function(x){return map[x]||0}))||1;
   $('chart').innerHTML=days.map(function(x){var v=map[x]||0;return'<div title="'+x+': '+v+'"><i style="height:'+Math.round(v/mx*80)+'%"></i>'+x.slice(8)+'</div>'}).join('');
   $('pages').innerHTML=bars(d.pages.slice().sort(function(a,b){return b.p-a.p}),function(x){return esc(pname(x.page))+' <span class="v">'+x.v+' views</span>'},function(x){return x.p},' people');
+  var RP=/^ep(\d+)(c\d+|cp|done)$/,fin={};
+  d.taps.forEach(function(x){var m=RP.exec(x.k);if(m&&m[2]==='done')fin[m[1]]=x.p});
+  var rows=d.pages.filter(function(x){return /^ep\d+$/.test(x.page)}).sort(function(a,b){return a.page.slice(2)-b.page.slice(2)});
+  $('prog').innerHTML=rows.length?rows.map(function(x){var f=fin[x.page.slice(2)]||0,pc=x.p?Math.min(100,Math.round(f/x.p*100)):0;return'<div class="row"><span class="n">'+esc(pname(x.page))+'</span><span class="bar"><i style="width:'+Math.max(4,pc)+'%"></i></span><span class="v">'+f+'/'+x.p+'</span></div>'}).join('')+'<p class="none" style="margin-top:8px">Finished reading / people who opened it</p>':'<p class="none">Nothing yet.</p>';
   $('countries').innerHTML=bars(d.countries,function(x){return flag(x.c)+' '+esc(cname(x.c))},function(x){return x.p});
   $('sources').innerHTML=bars(d.sources,function(x){return esc(x.k)},function(x){return x.p});
   $('devices').innerHTML=bars(d.devices,function(x){return esc(x.k)},function(x){return x.p});
-  $('taps').innerHTML=bars(d.taps,function(x){return esc(TAP[x.k]||x.k)+' <span class="v">'+x.p+' people</span>'},function(x){return x.c},' taps');
+  $('taps').innerHTML=bars(d.taps.filter(function(x){return !RP.test(x.k)}),function(x){return esc(tname(x.k))+' <span class="v">'+x.p+' people</span>'},function(x){return x.c},' taps');
   var r=d.ratings,n=0,s=0,j;for(j=1;j<=5;j++){n+=r[j]||0;s+=(r[j]||0)*j}
   $('stars').innerHTML=n?'<div class="big" style="font-size:34px">'+(s/n).toFixed(1)+' <span style="color:#ffc65c">\u2605</span> <span class="v" style="font-size:14px">'+n+' ratings</span></div><div style="margin-top:10px">'+[5,4,3,2,1].map(function(t){return'<div class="row"><span class="n">'+t+' \u2605</span><span class="bar"><i style="width:'+Math.round((r[t]||0)/Math.max.apply(null,[1,2,3,4,5].map(function(z){return r[z]||0}))*100)+'%"></i></span><span class="v">'+(r[t]||0)+'</span></div>'}).join('')+'</div>':'<p class="none">No ratings yet.</p>';
   var t=new Date();$('upd').textContent='Updated '+t.toLocaleTimeString()+' \u00b7 refreshes by itself';
