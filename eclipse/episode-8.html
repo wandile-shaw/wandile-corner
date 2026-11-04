@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ECLIPSE: Foundations</title>
+<style>
+:root{--bg:#070b1a;--ink:#dbe3f5;--mute:#8d98c4;--acc:#7fb0ff;--card:#0f1630;--line:#1d2850;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.75 Georgia,"Times New Roman",serif;overflow-x:hidden}
+main{max-width:640px;margin:0 auto;padding:0 20px 90px}
+.cover{text-align:center;padding:24px 0 8px}
+.cover img{width:100%;border-radius:14px;display:block}
+h1{font:700 46px/1 system-ui,sans-serif;letter-spacing:.3em;text-indent:.3em;margin:24px 0 8px;color:#fff;text-shadow:0 0 24px #5b8cff}
+.sub{font:13px system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin:0}
+nav{margin:44px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:16px 20px}
+nav b{font:600 12px system-ui,sans-serif;letter-spacing:.25em;color:var(--acc);text-transform:uppercase}
+nav a{display:block;color:var(--ink);text-decoration:none;font:16px/1 system-ui,sans-serif;padding:11px 0;border-bottom:1px solid var(--line)}
+nav a:last-child{border:0}
+h2{font:600 12px system-ui,sans-serif;letter-spacing:.28em;color:var(--acc);text-transform:uppercase;margin:72px 0 6px}
+h3{font:700 28px/1.2 system-ui,sans-serif;margin:0 0 6px;color:#fff}
+.t{font:13px system-ui,sans-serif;color:var(--mute);margin:0 0 22px}
+p{margin:0 0 1.1em}
+figure{margin:24px -20px}
+figure img{width:100%;display:block}
+.msg{font:15px/1.4 system-ui,sans-serif;max-width:78%;padding:9px 14px;border-radius:16px;margin:0 0 8px;background:var(--card);border:1px solid var(--line)}
+.msg.me{margin-left:auto;background:#1b3a7a;border-color:#2c56b0}
+.msg small{display:block;color:var(--mute);font-size:11px;letter-spacing:.1em}
+.big{font:700 22px/1.3 system-ui,sans-serif;letter-spacing:.06em;color:#fff;margin:1.2em 0}
+.doc{background:#e9eefb;color:#101830;border-radius:8px;padding:18px 20px;font:15px/1.6 system-ui,sans-serif;margin:20px 0}
+.doc b{display:block;font-size:17px;border-bottom:2px solid #101830;padding-bottom:8px;margin-bottom:10px}
+.doc div{margin:3px 0}
+.red{color:#ff6b6b;font:700 15px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.06em}
+.back{margin:0;padding:16px 0 0;font:14px system-ui,sans-serif}.back a{color:var(--acc);text-decoration:none}.end{text-align:center;color:var(--mute);font:13px system-ui,sans-serif;letter-spacing:.3em;margin:70px 0 0}
+.lst{margin:0 0 1.2em;padding-left:1.3em}.lst li{margin:0 0 .5em}</style></head><body><main>
+<p class="back"><a href="index.html" target="_top" onclick="if(parent!==window){parent.postMessage('close',location.origin);return false}">&larr; All parts</a></p>
+<header class="cover"><img src="p0.jpg" alt="Eclipse crouching on a rooftop at night"><h1>ECLIPSE</h1><p class="sub">Volume 1 &middot; Part 8 &middot; Foundations</p></header>
+<nav><b>Contents</b>
+<a href="#prologue">Prologue &middot; The Things That Don’t Belong</a>
+<a href="#chapter1">1 &middot; Two Sets of Plans</a>
+<a href="#chapter2">2 &middot; Clearing the Surface</a>
+<a href="#chapter3">3 &middot; A Room With Questions</a>
+<a href="#chapter4">4 &middot; Version Two, in Pieces</a>
+<a href="#chapter5">5 &middot; The First Inventory</a>
+<a href="#chapter6">6 &middot; A File That Grows</a>
+<a href="#chapter7">7 &middot; A Normal Friday</a>
+<a href="#chapter8">8 &middot; The Foundation</a>
+<a href="#finalpage">Final Page &middot; Tomorrow</a></nav>
+<h2 id="prologue">Prologue</h2><h3>The Things That Don’t Belong</h3><p class="t">THURSDAY · 8:16 AM</p>
+<p>The morning traffic in Blackthorne City moves the way it always does: slowly, politely, and with one driver in every lane who seems to be hearing about green lights for the first time.</p>
+<p>Wandile drives with one hand on the wheel. His backpack sits in the passenger seat with the seatbelt on, the quietest passenger in the history of carpooling. At a red light, his phone lights up in its dashboard cradle.</p>
+<figure><img src="e8-01.jpg" alt="Wandile driving through slow morning traffic in Blackthorne City"></figure>
+<div class="msg"><small>ETHAN</small>Reminder: tomorrow. Pizza. Wings. Your house. Don’t suddenly develop plans.</div>
+<div class="msg me"><small>WANDILE</small>You are aware it’s my house, right?</div>
+<div class="msg"><small>ETHAN</small>And yet I’m the one organising the important things.</div>
+<p>Wandile shakes his head, smiling. The light turns green. Half a second later, a horn goes off somewhere behind him, because of course it does.</p>
+<p>For a moment, everything is ordinary.</p>
+<p>Then his thoughts wander home, the way they have all week. A concealed room beneath the storage area. A suit that needs rebuilding. A design that exists only on paper. And a growing list of things he cannot leave lying around when three friends walk through his front door.</p>
+<p>His phone connects to the car’s audio.</p>
+<p>“Your schedule indicates that you have a full university day,” says Oracle.</p>
+<p>“I know.”</p>
+<p>“Your available time for the project is therefore limited.”</p>
+<p>“I know that too.”</p>
+<p>“I was confirming that we share an understanding.”</p>
+<p>“You’re getting very good at saying things nobody asked you to say.”</p>
+<p>“I have been studying the masters. Mostly Ethan.”</p>
+<p>Wandile snorts. “That’s a low blow.”</p>
+<p>“It is an observation. I am told the two are closely related.”</p>
+<p>He pulls into the university car park and finds a space on the second try, which, by his standards, is a personal best.</p>
+<p>The ordinary day begins. At least, the half of it that comes with a timetable.</p>
+<h2 id="chapter1">Chapter 1</h2><h3>Two Sets of Plans</h3><p class="t">THURSDAY · 10:05 AM</p>
+<p>The lecture hall is warm, the projector hums, and Wandile sits near the middle with his notebook open and his phone face down beside it.</p>
+<p>He is paying attention. Mostly.</p>
+<p>The lecturer draws a diagram on the board, turns, and addresses the room.</p>
+<p>“The important thing here isn’t simply whether a system works. It’s whether it continues to work when one part fails.”</p>
+<p>Wandile stops writing.</p>
+<p>At the bottom of his page, one word is waiting for him, underlined twice since last night. RELIABILITY. He draws a small box around it, like putting a fence around a very important plant.</p>
+<p>“A design that only works under ideal conditions,” the lecturer goes on, “is not a dependable design.”</p>
+<p>Wandile copies the sentence down word for word. For once, a lecture has handed him something he can use outside the classroom, and he decides not to tell anyone, in case it encourages them.</p>
+<p>Afterwards, as the hall empties into the corridor, Ethan catches up with him.</p>
+<p>“You looked unusually serious in there.”</p>
+<p>“I was listening.”</p>
+<p>“That’s what I said. Unusual.”</p>
+<p>“You could try it sometime.”</p>
+<p>“I do listen.”</p>
+<p>Charlotte falls into step beside them. “You listen for the word lunch.”</p>
+<p>“And I have an excellent record of responding to it.”</p>
+<p>Olivia approaches from the opposite end of the corridor. “Are we still meeting tomorrow?”</p>
+<p>“We’re meeting tomorrow,” says Ethan. “The only question is whether Wandile remembers that he’s hosting.”</p>
+<p>“I remember.”</p>
+<p>“Good,” says Charlotte, “because Ethan has already planned the menu, the entertainment, and apparently the seating arrangement.”</p>
+<p>“I have not planned the seating arrangement.” A beat. “Yet.”</p>
+<p>Olivia laughs.</p>
+<figure><img src="e8-02.jpg" alt="The friends meet in a university corridor"></figure>
+<p>“Just make sure you actually relax tomorrow, Wandile.”</p>
+<p>“I will.”</p>
+<p>“I’m holding you to that.”</p>
+<p>She gives him a small smile and heads off to her next class.</p>
+<figure><img src="e8-03.jpg" alt="Olivia glances back with a small smile as she leaves"></figure>
+<p>Ethan watches her go. Then he turns to Wandile.</p>
+<p>“Interesting.”</p>
+<p>“Don’t.”</p>
+<p>“I didn’t say anything.”</p>
+<p>“Your face did,” says Charlotte.</p>
+<p>“My face is allowed to have opinions.”</p>
+<p>They wander off together, already arguing about lunch. Wandile’s phone buzzes once in his pocket. He checks it with the care of a man defusing a bomb.</p>
+<div class="msg"><small>ORACLE</small>PROJECT PRIORITY: SECURE STORAGE AND ROOM ASSESSMENT.</div>
+<p>He silences it before anyone can see.</p>
+<p>Two lives. One calendar. And Friday is getting closer.</p>
+<h2 id="chapter2">Chapter 2</h2><h3>Clearing the Surface</h3><p class="t">THURSDAY · 4:12 PM</p>
+<p>Back at the house, Wandile steps into the storage area and shuts the door behind him.</p>
+<p>The metal shelving stands where he left it, the concealed panel still hidden behind it. He doesn’t touch the shelving. Instead, he studies the ordinary side of the room, the side a visitor might see if a visitor wandered in looking for the bathroom.</p>
+<figure><img src="e8-04.jpg" alt="Wandile taking his sketches and photographs off the storage-room wall"></figure>
+<p>The first suit sketch is still pinned to the wall. Beside it hang the photograph of the Meridian truck and the chalk checklist he used while planning the room. Together, they look like a very small, very suspicious detective board.</p>
+<p>“I said I’d take these down before Friday,” he says.</p>
+<p>“Correct,” says Oracle.</p>
+<p>“You could have reminded me earlier.”</p>
+<p>“You did not specify a reminder time.”</p>
+<p>“You’re an AI. Surely you can work out what ‘before Friday’ means.”</p>
+<p>“I can. I did not know when you intended to complete the task.”</p>
+<p>Wandile gives the laptop a look. “Convenient.”</p>
+<p>“I have been told, on three separate occasions, not to nag. I have been extremely disciplined.”</p>
+<p>“That was about my laundry.”</p>
+<p>“A principle is a principle.”</p>
+<p>He starts taking everything down. The truck photograph goes into a private folder. The rough sketch joins the rest of his design papers. The chalk checklist disappears under a damp cloth, one tidy line at a time.</p>
+<p>He checks the corners for anything he has missed. Then he looks at the shelves: ordinary boxes, old household equipment, a few things his parents left behind. Nothing that would make a visitor curious.</p>
+<p>He moves the sensitive materials into a locked storage case and slides it in among the other containers. He checks the lock twice.</p>
+<p>“The materials are now out of immediate view,” says Oracle.</p>
+<p>“That’s the idea.”</p>
+<p>“The case itself is still identifiable as a secure container.”</p>
+<p>Wandile looks at it. It is, annoyingly, the most interesting object in the room. “Then it needs to look less interesting.”</p>
+<p>He drags it into a less obvious spot and builds a wall of boring around it: two folding camping chairs, a box of old extension cords, and a carton labelled CHRISTMAS LIGHTS (TANGLED), which is both true and the best protection money can buy.</p>
+<figure><img src="e8-05.jpg" alt="The locked case hidden behind camping chairs and a box of tangled lights"></figure>
+<p>“That is an improvement,” says Oracle. “Statistically, nobody opens a box of tangled lights voluntarily.”</p>
+<p>“I’ll take the approval.”</p>
+<p>He steps back. The room looks like a storage room again. No sketches. No photographs. No visible evidence of what he has been working on.</p>
+<p>He turns off the light and leaves. Behind the shelving, the concealed entrance stays exactly as it was: untouched, and keeping its secrets.</p>
+<h2 id="chapter3">Chapter 3</h2><h3>A Room With Questions</h3><p class="t">THURSDAY · 5:03 PM</p>
+<p>Upstairs, Wandile spreads last night’s floor plan across his desk.</p>
+<p>The measurements are all there, along with his notes on the room’s condition. He has drawn a rough layout: a workbench along one wall, a computer station, equipment storage, and enough space to move around without knocking into everything.</p>
+<figure><img src="e8-06.jpg" alt="Wandile studying the floor plan of the hidden room"></figure>
+<p>But the layout is only a proposal. The room is old, it was hidden for a reason, and he doesn’t know enough about how it was built to start changing it.</p>
+<p>“I need someone to assess the room,” he says.</p>
+<p>“That is consistent with the safety requirements identified yesterday,” says Oracle.</p>
+<p>“Structural condition. Electrical supply. Ventilation. Moisture. Fire safety.”</p>
+<p>“Those matters should be assessed by appropriately qualified professionals.”</p>
+<p>“I know. I’m not about to start pulling wires out of walls.”</p>
+<p>“I appreciate that.”</p>
+<p>He looks at the plan again. “The difficult part is explaining why I want the room kept private.”</p>
+<p>“You can explain that the property contains a concealed service space and request that its details be treated confidentially.”</p>
+<p>“That sounds like something a very boring lawyer would say.”</p>
+<p>“That is the intention. Boring is excellent camouflage.”</p>
+<p>“I don’t need someone wandering around the house telling everyone what they found.”</p>
+<p>“A legitimate professional assessment will require accurate information about the space. Confidentiality should be agreed before the work begins.”</p>
+<p>Wandile nods. He opens a new document and types a heading, then a list of everything he needs answered.</p>
+<div class="doc"><b>PROPERTY ASSESSMENT — CONCEALED SERVICE ROOM</b><div>• Is the room structurally sound?</div><div>• Is there evidence of damp or water ingress?</div><div>• Is the existing ventilation adequate?</div><div>• Is the electrical installation safe?</div><div>• What fire-safety provisions are required?</div><div>• Can the entrance remain discreet while meeting safety requirements?</div></div>
+<p>“No shortcuts,” he says.</p>
+<p>“That is advisable.”</p>
+<p>“You really don’t know how to make that sound encouraging.”</p>
+<p>“Would you prefer that I describe an unsafe shortcut as an exciting opportunity?”</p>
+<p>“No.”</p>
+<p>“Then we agree.”</p>
+<p>He saves the document and goes digging through the house’s old paperwork: plans, service records, renovation notes. Some of it is useful. Most of it is incomplete, written by people who clearly never imagined anyone would need it.</p>
+<p>He scans the pages that matter and files them in the assessment folder.</p>
+<p>The room is still unfinished. But now he has a responsible way to find out what it can safely become.</p>
+<h2 id="chapter4">Chapter 4</h2><h3>Version Two, in Pieces</h3><p class="t">THURSDAY · 6:21 PM</p>
+<p>By evening, the bedroom desk has disappeared under design sheets.</p>
+<figure><img src="e8-07.jpg" alt="Design sheets for Version Two cover the desk"></figure>
+<p>Wandile has taken the Version Two suit apart, on paper at least, into separate pieces: the mask, the forearm guards, the gloves, the boots, the communications system. The cape lives on a page of its own, under a note in his handwriting: MODULAR CAPE SYSTEM — DEVELOPMENT REQUIRED. Beside it sits the cracked guard from Version One, still hanging on to its dignity, barely.</p>
+<p>He picks the guard up and turns it over. “The problem wasn’t just the material.”</p>
+<p>“Your previous design also offered limited support and no reliable way to distribute impact,” says Oracle.</p>
+<p>“Exactly.”</p>
+<p>He sets it down and starts a new drawing. The revised guard sits more securely around the forearm without locking up the wrist. The outer shell protects what is underneath; the inner layer is built for comfort and a proper fit. He fills the margins with notes.</p>
+<figure><img src="e8-08.jpg" alt="Sketch of the redesigned forearm guard beside the cracked original"></figure>
+<p>“It needs to stay in place when I move. It can’t catch on anything. And I need to be able to take it off quickly.”</p>
+<p>“Those are reasonable design requirements.”</p>
+<p>“I want protection, not something that makes me move like a refrigerator.”</p>
+<p>“I will add ‘does not resemble a refrigerator’ to the specification.”</p>
+<p>“Please do.”</p>
+<p>He moves on to the gloves. The fingers have to stay flexible. The grip has to be dependable. The material has to let him pick up ordinary objects without losing all feeling, because a hero who can’t pick up his own keys is just a man in an expensive costume. He sketches a revised wrist connection between the glove and the guard.</p>
+<p>Then the boots. The first suit was assembled from whatever was lying around: ordinary clothing and a few basic protective pieces. The new design needs proper footwear, something that supports movement and protects his feet without making him slower or less stable. He writes it across the page in block capitals.</p>
+<p class="big">FIT BEFORE APPEARANCE.</p>
+<p>Oracle puts the separate design pages side by side on the laptop.</p>
+<p>“Your current drawings contain several components that depend on one another.”</p>
+<p>“I know. The glove and the guard have to work together. The mask has to connect to the communications system. The boots have to fit the rest of the suit.”</p>
+<p>“It may be more efficient to develop and test each component separately before integration.”</p>
+<p>“That’s what we’re doing.”</p>
+<p>He looks at the full design one more time. On paper, the suit looks incredible. But a drawing can’t tell him whether it will actually work, and he knows it.</p>
+<p>He closes the design folder and opens a fresh one.</p>
+<p>“Let’s start with the parts I can actually build and test.”</p>
+<h2 id="chapter5">Chapter 5</h2><h3>The First Inventory</h3><p class="t">THURSDAY · 7:34 PM</p>
+<p>The hidden room is lit by a single temporary lamp, and the light makes the dust look like it is trying to leave.</p>
+<p>Wandile stands at the entrance with a clipboard. He hasn’t started renovating. There is no workbench, no computer station, no equipment installed. For now, he is only documenting what is there and what will eventually need to go in.</p>
+<p>He stays in the doorway a moment longer than he needs to, and the room fills itself in.</p>
+<p>A workbench under the lamp, tools hanging in a neat row above it. Shelving along the side wall, cases stacked in tidy lines. A computer station on the far wall with screens glowing, and a chair that is actually comfortable. A banner on the concrete, carrying a symbol he has only ever drawn on paper.</p>
+<p>It exists only in his head. The real room is still a bare floor, a dusty lamp and a very long list. But he can see it so clearly that it almost feels like a promise.</p>
+<figure><img src="e8-09.jpg" alt="The hidden room as Wandile imagines it: workbench, shelving and a computer station"></figure>
+<p>“We need to separate what belongs here from what can stay upstairs.”</p>
+<p>“I have prepared a preliminary inventory,” says Oracle.</p>
+<p>The laptop fills with categories.</p>
+<div class="doc"><b>PRELIMINARY INVENTORY</b><div>WORKSPACE: workbench · task lighting · secure tool storage</div><div>COMPUTER AND COMMUNICATIONS: main workstation · local data storage · communications interface · backup power assessment</div><div>SUIT STORAGE: hanging and drying space · separate component storage · protective cases</div><div>SAFETY: fire-safety equipment · first-aid supplies · safe electrical installation · adequate ventilation</div></div>
+<p>“That’s a lot of equipment for an empty room.”</p>
+<p>“It is a preliminary list. It does not mean everything should be purchased immediately.”</p>
+<p>“Good, because I’m not turning this into a shopping spree.”</p>
+<p>He studies the room. “Workstation on the far wall. Storage along the side. Workbench near the light.”</p>
+<p>“That arrangement may be suitable, subject to the professional assessment and final measurements.”</p>
+<p>“You really enjoy adding that last part.”</p>
+<p>“It remains important.”</p>
+<p>He marks the positions on his floor plan. Then he notices that one corner of the room has a slightly different surface from the rest, a patch of wall that looks as if it was repaired by someone who cared more about finishing than about neatness.</p>
+<p>He doesn’t touch it. He doesn’t try to open anything. He photographs it and adds a note for the inspector.</p>
+<figure><img src="e8-10.jpg" alt="The odd patch of wall in the corner of the hidden room"></figure>
+<p>“Another question for the inspector.”</p>
+<p>“Added to the assessment notes.”</p>
+<p>He takes one last photograph from the entrance. The room looks exactly as it did when he found it. But his plan for it is getting sharper.</p>
+<p>He folds the floor plan, tucks the clipboard under his arm, and heads upstairs.</p>
+<h2 id="chapter6">Chapter 6</h2><h3>A File That Grows</h3><p class="t">THURSDAY · 8:16 PM · Meridian Security and Intelligence Division</p>
+<p>The office is quiet. The same operator sits at the same desk, in the same chair, with what appears to be the same cold coffee.</p>
+<figure><img src="e8-11.jpg" alt="The Meridian operator at his desk, the Eclipse file on screen"></figure>
+<p>The file is still open on his main monitor.</p>
+<p class="red">SUBJECT: ECLIPSE.<br>IDENTITY: UNKNOWN.<br>ASSOCIATED INCIDENT: MERIDIAN DEPOT.<br>STATUS: UNDER REVIEW.</p>
+<p>He plays the footage again. The masked figure moves along the depot perimeter, too far away and too badly lit to tell him anything useful. He pauses the frame. On the second monitor sits the recovered page: ECLIPSE: FIELD NOTES.</p>
+<figure><img src="e8-12.jpg" alt="Depot footage and the recovered Field Notes page on two monitors"></figure>
+<p>He opens the incident report. A routine perimeter employee found the page. Nobody reported a confrontation. No equipment is missing. There is no confirmed entry into the facility.</p>
+<p>“No forced access,” he mutters. “No reported damage. No confirmed contact with personnel.”</p>
+<p>He opens a new section. “So what were you looking for?”</p>
+<p>He zooms in. The figure isn’t close enough to identify. The mask hides the face, and the clothing offers almost nothing. So he opens the depot’s logistics records and lines up the time of the sighting against the truck movements. A shipment record appears. He studies it. The information is incomplete.</p>
+<p>“Interesting.”</p>
+<p>He types a note requesting the relevant vehicle movement records and the original perimeter report.</p>
+<p>He doesn’t send an alert to the wider organisation. He doesn’t contact Adrian. For now, he wants to understand the incident before turning it into someone else’s problem.</p>
+<p>He saves the updated file. STATUS: UNDER REVIEW. On the screen, the masked figure waits, frozen mid-step. The operator leans back in his chair.</p>
+<p>“Let’s see what brings you back.”</p>
+<p>The office goes quiet again. Somewhere down the corridor, a vending machine hums to itself.</p>
+<h2 id="chapter7">Chapter 7</h2><h3>A Normal Friday</h3><p class="t">THURSDAY · 9:42 PM</p>
+<p>By nine-forty, Wandile is back in his bedroom, and his desk has become the border between two countries. University books stack up on one side. Suit drawings spread across the other.</p>
+<p>He checks the storage area one more time through the room camera. Everything is out of sight. He closes the feed.</p>
+<p>His phone lights up with the group chat.</p>
+<div class="msg"><small>ETHAN</small>Important question. What time are we arriving tomorrow?</div>
+<div class="msg"><small>CHARLOTTE</small>At the time you were told.</div>
+<div class="msg"><small>ETHAN</small>That doesn’t answer the question.</div>
+<div class="msg"><small>OLIVIA</small>It means read the messages.</div>
+<div class="msg"><small>ETHAN</small>I was hoping for a more direct answer.</div>
+<div class="msg me"><small>WANDILE</small>Come around in the afternoon. I’ll be here.</div>
+<div class="msg"><small>ETHAN</small>Excellent. I will bring the food.</div>
+<div class="msg"><small>CHARLOTTE</small>You mean the food you have already been talking about for two days?</div>
+<div class="msg"><small>ETHAN</small>Preparation is the foundation of success.</div>
+<div class="msg"><small>OLIVIA</small>That is not what that means.</div>
+<p>Wandile laughs quietly and types again.</p>
+<div class="msg me"><small>WANDILE</small>Just don’t bring enough food to feed the entire university.</div>
+<div class="msg"><small>ETHAN</small>No promises.</div>
+<figure><img src="e8-13.jpg" alt="Wandile laughs at the group chat on his phone"></figure>
+<p>A few seconds pass. Then a private message arrives.</p>
+<div class="msg"><small>OLIVIA</small>Looking forward to tomorrow. Don’t spend the whole evening working.</div>
+<p>He reads it twice. Then a third time, strictly for accuracy. He types a reply.</p>
+<div class="msg me"><small>WANDILE</small>I’ll be there. Promise.</div>
+<div class="msg"><small>OLIVIA</small>Good. See you tomorrow :)</div>
+<p>He puts the phone down and just sits there for a moment.</p>
+<p>Tomorrow, his friends will be in his house. They’ll eat, argue over what to watch, and make themselves comfortable as if they own the place. And he wants it that way.</p>
+<p>He looks at the Version Two drawings. “Tomorrow stays normal.”</p>
+<p>“That is the stated objective,” says Oracle.</p>
+<p>“No project work while they’re here. No equipment lying around. No strange noises from the storage area.”</p>
+<p>“I can assist by keeping the project materials organised and the workstation inactive during the gathering.”</p>
+<p>“Good.”</p>
+<p>“I will also refrain from commenting on the pizza.”</p>
+<p>“You don’t have to comment on everything.”</p>
+<p>“That is a great deal to ask.”</p>
+<p>He closes the design folder. Then he opens his university assignment and gets to work.</p>
+<p>Not because the other responsibilities have disappeared. Because this one matters too.</p>
+<h2 id="chapter8">Chapter 8</h2><h3>The Foundation</h3><p class="t">THURSDAY · 11:18 PM</p>
+<p>By eleven, the house is quiet. Wandile walks through the storage area one last time, his phone torch sweeping across the shelves.</p>
+<p>Everything is back where it belongs. The ordinary boxes are exactly as ordinary as they should be. Nothing on the walls suggests that anything unusual is happening. He checks the concealed panel without opening it, then heads back to his bedroom.</p>
+<p>The floor plan lies on his desk beside the Version Two design. He adds a final note to the room checklist.</p>
+<p class="red">NO RENOVATION UNTIL PROFESSIONAL ASSESSMENT.</p>
+<p>Below it, he writes out the next steps.</p>
+<div class="doc"><b>NEXT STEPS</b><div>1. Arrange a confidential professional assessment.</div><div>2. Confirm the room’s structural and safety requirements.</div><div>3. Finalise the workstation layout.</div><div>4. Develop and test suit components individually.</div><div>5. Integrate systems only after testing.</div></div>
+<p>He reads the list. There is a lot left to do. But for the first time, the project feels less like a collection of ideas and more like something with a direction.</p>
+<p>“Foundations first.”</p>
+<p>“A suitable description of the current stage,” says Oracle.</p>
+<p>“You agree?”</p>
+<p>“Yes.”</p>
+<p>Wandile looks at the laptop. “That was easy.”</p>
+<p>“I can make the next one more difficult if you prefer.”</p>
+<p>“Please don’t.”</p>
+<p>He closes the laptop, and the desk settles into the lamplight: the cracked forearm guard from Version One, the revised Version Two drawings, the floor plan of the hidden room, the six notebook headings, and a checklist with more things ticked off than yesterday.</p>
+<figure><img src="e8-14.jpg" alt="The desk in lamplight: guard, drawings, floor plan, notebook and checklist"></figure>
+<p>Nothing is finished. But the foundation is there.</p>
+<h2 id="finalpage">Final Page</h2><h3>Tomorrow</h3><p class="t">THURSDAY · 11:56 PM</p>
+<p>At Meridian, the operator’s monitor is still on. The Eclipse file is still open. A new line has been added to the incident record.</p>
+<p class="red">REQUESTED: VEHICLE MOVEMENT RECORDS.<br>REQUESTED: ORIGINAL PERIMETER REPORT.<br>PURPOSE: INCIDENT REVIEW.</p>
+<p>He saves the file and switches off his desk lamp. The screen goes dark.</p>
+<p>Across the city, Wandile’s phone sits on the bedside table. A final message lights up the group chat.</p>
+<div class="msg"><small>ETHAN</small>Tomorrow is going to be legendary.</div>
+<div class="msg"><small>CHARLOTTE</small>It’s a movie night.</div>
+<div class="msg"><small>ETHAN</small>Exactly.</div>
+<p>Wandile reads it, smiles, and puts the phone down.</p>
+<p>Downstairs, the storage-room door is closed. Behind the ordinary shelving, the concealed entrance stays hidden. And beyond it, the unfinished room waits.</p>
+<figure><img src="e8-15.jpg" alt="The closed storage-room door, with the hidden room beyond"></figure>
+<p class="back" style="text-align:center;margin-top:26px"><a href="index.html" target="_top" onclick="if(parent!==window){parent.postMessage('close',location.origin);return false}">&larr; Back to all parts</a></p>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "72bf7dc2a5804386a06f2e6c3610c2e7"}'></script><!-- End Cloudflare Web Analytics -->
+<script src="/t.js" data-page="ep8" defer></script>
+<script src="/read.js" defer></script>
+</body></html>
