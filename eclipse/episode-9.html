@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ECLIPSE: Integration</title>
+<style>
+:root{--bg:#070b1a;--ink:#dbe3f5;--mute:#8d98c4;--acc:#7fb0ff;--card:#0f1630;--line:#1d2850;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:18px/1.75 Georgia,"Times New Roman",serif;overflow-x:hidden}
+main{max-width:640px;margin:0 auto;padding:0 20px 90px}
+.cover{text-align:center;padding:24px 0 8px}
+.cover img{width:100%;border-radius:14px;display:block}
+h1{font:700 46px/1 system-ui,sans-serif;letter-spacing:.3em;text-indent:.3em;margin:24px 0 8px;color:#fff;text-shadow:0 0 24px #5b8cff}
+.sub{font:13px system-ui,sans-serif;letter-spacing:.22em;text-transform:uppercase;color:var(--mute);margin:0}
+nav{margin:44px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--card);padding:16px 20px}
+nav b{font:600 12px system-ui,sans-serif;letter-spacing:.25em;color:var(--acc);text-transform:uppercase}
+nav a{display:block;color:var(--ink);text-decoration:none;font:16px/1 system-ui,sans-serif;padding:11px 0;border-bottom:1px solid var(--line)}
+nav a:last-child{border:0}
+h2{font:600 12px system-ui,sans-serif;letter-spacing:.28em;color:var(--acc);text-transform:uppercase;margin:72px 0 6px}
+h3{font:700 28px/1.2 system-ui,sans-serif;margin:0 0 6px;color:#fff}
+.t{font:13px system-ui,sans-serif;color:var(--mute);margin:0 0 22px}
+p{margin:0 0 1.1em}
+figure{margin:24px -20px}
+figure img{width:100%;display:block}
+.msg{font:15px/1.4 system-ui,sans-serif;max-width:78%;padding:9px 14px;border-radius:16px;margin:0 0 8px;background:var(--card);border:1px solid var(--line)}
+.msg.me{margin-left:auto;background:#1b3a7a;border-color:#2c56b0}
+.msg small{display:block;color:var(--mute);font-size:11px;letter-spacing:.1em}
+.big{font:700 22px/1.3 system-ui,sans-serif;letter-spacing:.06em;color:#fff;margin:1.2em 0}
+.doc{background:#e9eefb;color:#101830;border-radius:8px;padding:18px 20px;font:15px/1.6 system-ui,sans-serif;margin:20px 0}
+.doc b{display:block;font-size:17px;border-bottom:2px solid #101830;padding-bottom:8px;margin-bottom:10px}
+.doc div{margin:3px 0}
+.red{color:#ff6b6b;font:700 15px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.06em}
+.back{margin:0;padding:16px 0 0;font:14px system-ui,sans-serif}.back a{color:var(--acc);text-decoration:none}.end{text-align:center;color:var(--mute);font:13px system-ui,sans-serif;letter-spacing:.3em;margin:70px 0 0}
+.lst{margin:0 0 1.2em;padding-left:1.3em}.lst li{margin:0 0 .5em}</style></head><body><main>
+<p class="back"><a href="index.html" target="_top" onclick="if(parent!==window){parent.postMessage('close',location.origin);return false}">&larr; All parts</a></p>
+<header class="cover"><img src="p0.jpg" alt="Eclipse crouching on a rooftop at night"><h1>ECLIPSE</h1><p class="sub">Volume 1 &middot; Part 9 &middot; Integration</p></header>
+<nav><b>Contents</b>
+<a href="#prologue">Prologue &middot; The Last Day</a>
+<a href="#chapter1">1 &middot; The Room Becomes a Base</a>
+<a href="#chapter2">2 &middot; The Workstation</a>
+<a href="#chapter3">3 &middot; The Suit</a>
+<a href="#chapter4">4 &middot; Oracle, Integrated</a>
+<a href="#chapter5">5 &middot; The Gadgets</a>
+<a href="#chapter6">6 &middot; The Cape</a>
+<a href="#chapter7">7 &middot; The First Full System Test</a>
+<a href="#chapter8">8 &middot; The Final Checklist</a>
+<a href="#chapter9">9 &middot; The Room Nobody Knows About</a>
+<a href="#finalpage">Final Page &middot; Back to Normal</a></nav>
+<h2 id="prologue">Prologue</h2><h3>The Last Day</h3><p class="t">FRIDAY · 6:32 AM</p>
+<p>A digital clock changes from 6:31 to 6:32, and Wandile’s bedroom stays exactly as quiet as it was a second ago.</p>
+<p>On his desk, the Version Two pieces are laid out in carefully organised sections: the angular hooded mask, the reinforced gauntlets, the specialised boots, the communications system, the modular cape. Overnight, with Oracle checking every measurement, the drawings have turned into hardware. The original plans lie beside them, along with his notebook, open to the first page and its six headings.</p>
+<ul class="lst"><li>VISIBILITY.</li><li>COMMUNICATION.</li><li>MOVEMENT.</li><li>EVIDENCE.</li><li>ESCAPE ROUTES.</li><li>RELIABILITY.</li></ul>
+<figure><img src="e9-01.jpg" alt="The Version Two pieces laid out on Wandile’s desk at 6:32 AM"></figure>
+<p>Wandile stands in front of the desk with his hands in his pockets, looking at all of it. He slept for roughly the length of a short film, and he feels exactly as well-rested as that sounds. His phone vibrates.</p>
+<div class="msg"><small>ETHAN</small>TODAY IS THE DAY.</div>
+<div class="msg"><small>ETHAN</small>I hope you’re emotionally prepared for the amount of food I’m bringing.</div>
+<div class="msg me"><small>WANDILE</small>I’m more concerned about where I’m going to put it.</div>
+<div class="msg"><small>ETHAN</small>That’s called hospitality.</div>
+<p>Wandile puts the phone down. Oracle takes that as an invitation.</p>
+<p>“Your available working hours are limited.”</p>
+<p>“I know.”</p>
+<p>“You have several outstanding objectives.”</p>
+<p>“I know.”</p>
+<p>“Would you like me to list them?”</p>
+<p>“No. I wrote them down myself.”</p>
+<p>“Your confidence is noted. It has been filed under optimism.”</p>
+<p>Wandile picks up his notebook. “Today, we finish.”</p>
+<p>A short pause.</p>
+<p>“Then we should begin.”</p>
+<p>He looks towards the door.</p>
+<h2 id="chapter1">Chapter 1</h2><h3>The Room Becomes a Base</h3><p class="t">FRIDAY · 7:05 AM</p>
+<p>The concealed entrance opens, and Wandile steps into the hidden room.</p>
+<p>It is still recognisably the space he discovered behind the storage shelving, but the transformation is well under way. The professional assessment and the approved work have been completed, quietly and under a great deal of confidentiality paperwork. Qualified tradespeople have finished the safety work, and the room is ready for its final fit-out.</p>
+<p>A workbench has been installed along one wall. On every form, the room is described as a “private archive and workshop”, a phrase Oracle suggested because it is boring and technically true. Not one of the tradespeople asked why an archive needs this much ventilation. The electrical and ventilation work has been done and checked. The floor is clean, the walls are finished, and the lighting actually works, which is a significant step up from a single caged bulb. The room smells of fresh paint and concrete dust, which is the smell of a place that has been taken seriously.</p>
+<figure><img src="e9-02.jpg" alt="Wandile steps into the transformed hidden room"></figure>
+<p>Wandile looks around. “Okay.”</p>
+<p>He takes a few steps inside. “This is starting to look like something.”</p>
+<p>“The room now meets the agreed requirements for its intended use,” says Oracle.</p>
+<p>“You could sound a little more impressed.”</p>
+<p>“I am reserving my assessment until the equipment has been installed.”</p>
+<p>“Of course you are.”</p>
+<p>He walks towards the workbench. A computer workstation waits to be connected. Secure storage units stand along the opposite wall. A dedicated section has been left for the suit and its individual components.</p>
+<p>Wandile puts his notebook down on the workbench. “Computer station here. Equipment storage there. Suit section along that wall.”</p>
+<p>“That matches the final layout.”</p>
+<p>“And nothing gets left upstairs.”</p>
+<p>“Your ordinary living space will remain separate from the project.”</p>
+<p>Wandile glances back at the concealed entrance. “That’s important.”</p>
+<p>He starts unpacking the equipment. The room is no longer an empty space with potential. It is becoming Eclipse’s headquarters.</p>
+<h2 id="chapter2">Chapter 2</h2><h3>The Workstation</h3><p class="t">FRIDAY · 8:14 AM</p>
+<p>The main workstation powers on. One monitor lights up, then another.</p>
+<p>The central display shows a clean interface. Research folders, recorded images, maps and project files sit in separate sections, each in its proper place.</p>
+<figure><img src="e9-03.jpg" alt="Wandile at the main workstation with research and map screens"></figure>
+<p>Wandile drops into the chair. “Oracle, status.”</p>
+<p>“Main workstation online. Local storage connected. Project files accessible.”</p>
+<p>“Communications?”</p>
+<p>“The primary interface is available. The helmet connection remains to be integrated.”</p>
+<p>He opens the system dashboard. “Let’s keep everything organised. Research on one side, equipment diagnostics on another. Nothing gets mixed with university work.”</p>
+<p>“Separate environments have been configured.”</p>
+<p>The folders are labelled with a precision that can only mean Oracle named them. Wandile renames one to something less formal. A second later, it changes back.</p>
+<p>“Folder names matter.”</p>
+<p>“They’re folders.”</p>
+<p>“They are evidence-adjacent.”</p>
+<p>He lets it go. He checks the research folder. The Meridian investigation is all there, sorted into dates, locations, photographs and records. Confirmed information is kept apart from unanswered questions.</p>
+<p>“And the original files?”</p>
+<p>“Preserved separately.”</p>
+<p>“Good. I don’t want a system update accidentally changing the evidence.”</p>
+<p>He opens a map. Known locations appear, each marked with its information.</p>
+<p>“The map contains only locations supported by your recorded research.”</p>
+<p>“No guessing.”</p>
+<p>“Correct.”</p>
+<p>Wandile leans back. “Now we’re getting somewhere.”</p>
+<h2 id="chapter3">Chapter 3</h2><h3>The Suit</h3><p class="t">FRIDAY · 9:26 AM</p>
+<p>A new section of the room is revealed.</p>
+<p>The Version Two suit lies across a clean work surface in its first complete assembly. It is no longer just a sketch. The black-and-blue material has been put together into a full design, with reinforced sections and carefully fitted components.</p>
+<figure><img src="e9-04.jpg" alt="The Version Two suit laid out beside the hooded mask"></figure>
+<p>The hooded mask sits beside it. Its angular shape follows the design Wandile pinned above his desk, and the Eclipse emblem is built into the chest.</p>
+<p>Wandile runs his hand over the material. “I don’t want this to look like a costume.”</p>
+<p>“Its appearance is consistent with the design specifications.”</p>
+<p>“It needs to move properly. I need to be able to turn, run, bend and move without fighting the suit.”</p>
+<p>“Mobility and fit were prioritised during development.”</p>
+<p>On a shelf of its own sits the cracked Version One guard, with a small label that Oracle insisted on printing: RETIRED WITH HONOURS.</p>
+<p>He picks up a forearm guard. It is nothing like the cracked original. The revised design sits more securely, with a protective outer section and a better connection to the glove. He turns it over, checks the fit, and sets it down.</p>
+<p>Next, the boots, built to support movement and protect his feet without making the suit unnecessarily heavy.</p>
+<p>Wandile studies the whole arrangement. “Version One got me through the first night.”</p>
+<p>“It also demonstrated several areas requiring improvement.”</p>
+<p>“You really know how to remember the bad parts.”</p>
+<p>“They are relevant to the design.”</p>
+<p>He picks up the mask. The angular faceplate is dark, with blue detailing and the Eclipse identity built into it.</p>
+<figure><img src="e9-05.jpg" alt="The angular hooded Eclipse mask with blue detailing"></figure>
+<p>“This is the part that makes everything come together.”</p>
+<p>“The mask interface is the most complex component.”</p>
+<p>“Then let’s make sure it works.”</p>
+<h2 id="chapter4">Chapter 4</h2><h3>Oracle, Integrated</h3><p class="t">FRIDAY · 10:43 AM</p>
+<p>The mask rests on the workbench while Wandile sits at the workstation, reviewing the interface. A diagram shows the mask, the earpiece, the communications system and the main computer as connected parts.</p>
+<p>“The helmet needs to do a few things well,” he says. “I don’t need a hundred features that don’t work.”</p>
+<p>“The agreed functions are:”</p>
+<ul class="lst"><li>Communications.</li><li>Navigation and mapping.</li><li>Low-light assistance.</li><li>Equipment status and warnings.</li><li>Access to previously recorded information.</li><li>Review of collected evidence.</li></ul>
+<p>“And it needs to be clear. I don’t want a screen full of information when I’m trying to concentrate.”</p>
+<p>“The display will prioritise relevant information and allow you to access additional details when required.”</p>
+<p>“Good.”</p>
+<p>He puts on the mask. The display wakes up.</p>
+<figure><img src="e9-06.jpg" alt="The view from inside the mask: status, communications and a map"></figure>
+<p>It is quiet inside the mask, so quiet that his own breathing becomes the loudest thing in the room. Then the interface settles into place: a status indicator, a communications symbol and a navigation display.</p>
+<p>“Helmet connection established,” says Oracle.</p>
+<p>Wandile turns his head. The display stays steady. “Navigation.”</p>
+<p>A map appears. “Navigation interface available.”</p>
+<p>“Show recorded locations.”</p>
+<p>Several documented points light up.</p>
+<p>“Open the depot image.”</p>
+<p>The photograph appears in front of him. “Previously recorded evidence retrieved.”</p>
+<p>He studies it for a moment. “Low-light assistance.”</p>
+<p>The display shifts into a demonstration mode. He moves his head again. “Communications.”</p>
+<p>“Audio connection is clear.”</p>
+<p>“And equipment warnings?”</p>
+<p>“The system can display the available equipment status and report detected faults. It cannot guarantee that a component will never fail.”</p>
+<p>Wandile smiles. “There you are. I was wondering when you’d remind me about limitations.”</p>
+<p>“It would be irresponsible not to.”</p>
+<p>He takes the mask off. “All right. One more test.”</p>
+<p>He sets it back on the workbench. “Oracle, if the helmet loses its connection, what happens?”</p>
+<p>“The local equipment should remain independently usable where designed to do so. Communications-dependent functions may become unavailable. A loss of connection will be clearly indicated.”</p>
+<p>“Good. I don’t want to depend on one system for everything.”</p>
+<p>“That is consistent with your reliability requirements.”</p>
+<p>Wandile looks at the display. For the first time, Oracle isn’t just speaking through a laptop. It lives inside the equipment he intends to use.</p>
+<h2 id="chapter5">Chapter 5</h2><h3>The Gadgets</h3><p class="t">FRIDAY · 12:02 PM</p>
+<p>A collection of equipment is laid out on the workbench, and Wandile moves from one item to the next, checking each against his inventory: the compact camera, the communications equipment, the portable light, the protective components, the utility storage, the helmet interface. Everything has its own place.</p>
+<figure><img src="e9-07.jpg" alt="The equipment laid out in its places on the workbench"></figure>
+<p>“Let’s go through the inventory.”</p>
+<p>“Ready.”</p>
+<p>“Communications.”</p>
+<p>“Primary and backup communication options checked.”</p>
+<p>“Camera.”</p>
+<p>“Recording and playback tested.”</p>
+<p>“Lighting.”</p>
+<p>“Portable light operational.”</p>
+<p>“Helmet.”</p>
+<p>“Interface connected. Display functions available.”</p>
+<p>“Storage.”</p>
+<p>“Equipment compartments organised.”</p>
+<p>He switches on the portable light and aims it at the wall. It is brighter than strictly necessary. “Portable light operational,” Oracle says again, in the tone of someone who would like him to stop pointing it at things.</p>
+<p>He checks the remaining items. There is no enormous pile of weapons or pointless gadgets. The equipment is practical and compact, built around the way Wandile actually works.</p>
+<p>He closes the inventory. “I don’t need to carry everything every time.”</p>
+<p>“Correct. Equipment selection should depend on the circumstances.”</p>
+<p>“Exactly.”</p>
+<p>He looks over the full workbench. “I want to be prepared, not overloaded.”</p>
+<p>“That is a reasonable distinction.”</p>
+<h2 id="chapter6">Chapter 6</h2><h3>The Cape</h3><p class="t">FRIDAY · 1:16 PM</p>
+<p>A separate work surface holds the modular cape system, the most ambitious part of the whole design.</p>
+<p>Wandile studies the finished assembly. The cape is meant to stay compact when it isn’t needed, and to join the suit without getting in the way of ordinary movement. He checks its fit against the back of the suit.</p>
+<p>“This was the part I wasn’t sure we’d get right.”</p>
+<p>“It required additional development compared with the other components.”</p>
+<p>“I know.”</p>
+<p>He checks the attachment and its release mechanism, then runs a controlled demonstration. The cape opens into its full shape with a sound like a very expensive umbrella, then folds back to its stored position.</p>
+<figure><img src="e9-08.jpg" alt="The modular cape, compact and fully deployed"></figure>
+<p>Wandile watches closely. “Again.”</p>
+<p>The demonstration repeats.</p>
+<p>He checks the result. “No catching. No interference with movement.”</p>
+<p>“The test results are within the agreed operating parameters.”</p>
+<p>“Good.”</p>
+<p>He steps back. The cape completes the silhouette he first drew: the black-and-blue suit, the angular hooded mask, the reinforced gauntlets, the boots and the cape.</p>
+<p>Wandile realises he is smiling like a kid with a new toy, and stops. Then he starts again.</p>
+<p>The design is finally whole.</p>
+<h2 id="chapter7">Chapter 7</h2><h3>The First Full System Test</h3><p class="t">FRIDAY · 2:34 PM</p>
+<p>The room is ready. The workstation is active, the equipment is organised, and the suit hangs in its own space.</p>
+<p>Wandile stands in front of the mirror, wearing the complete Eclipse suit.</p>
+<p>The black-and-blue design is clean and fitted. The angular mask covers his face, with the hood framing it. The emblem sits across his chest.</p>
+<p>He looks at himself. For a second, he doesn’t recognise the figure in the glass. Then he does, which is somehow worse. The reflection doesn’t blink, so he blinks twice to be sure.</p>
+<figure><img src="e9-09.jpg" alt="Wandile in the full Eclipse suit, looking at his reflection"></figure>
+<p>A moment passes.</p>
+<p>“All right.”</p>
+<p>“Ready when you are,” says Oracle.</p>
+<p>He checks his gloves, then his forearm guards, then his boots. Then he moves through a series of controlled mobility checks. The suit moves with him. He turns, bends, tests his range of motion and checks the connections.</p>
+<figure><img src="e9-10.jpg" alt="Wandile testing his range of motion in the suit"></figure>
+<p>Nothing catches. Nothing feels loose.</p>
+<p>“Movement check.”</p>
+<p>“No equipment warnings detected.”</p>
+<p>“Communications.”</p>
+<p>“Clear.”</p>
+<p>“Navigation.”</p>
+<p>The display lights up. “Available.”</p>
+<p>“Evidence access.”</p>
+<p>A recorded image appears. “Available.”</p>
+<p>“Low-light assistance.”</p>
+<p>The interface changes to its demonstration setting. “Available.”</p>
+<p>Wandile looks towards the mirror. For a moment, he doesn’t speak. He is looking at the result of weeks of planning, mistakes, redesigns and work.</p>
+<p>“This is it.”</p>
+<p>“The system is operational, subject to its stated limitations.”</p>
+<p>“You always have to add that.”</p>
+<p>“It remains true.”</p>
+<p>Wandile takes off the mask. “I wouldn’t want you any other way.”</p>
+<p>“That statement is difficult to interpret as a technical assessment.”</p>
+<p>Wandile laughs. “Don’t worry about it.”</p>
+<h2 id="chapter8">Chapter 8</h2><h3>The Final Checklist</h3><p class="t">FRIDAY · 3:46 PM</p>
+<p>Wandile sits at the workstation. The final project checklist fills the screen, and he reads through every section.</p>
+<div class="doc"><b>LAIR</b><div>✓ Workstation installed.</div><div>✓ Equipment storage organised.</div><div>✓ Lighting operational.</div><div>✓ Ventilation and electrical work completed and checked.</div><div>✓ Safety provisions in place.</div><div>✓ Concealed entrance secured.</div><div>✓ Private project materials stored.</div></div>
+<div class="doc"><b>SUIT</b><div>✓ Main suit completed.</div><div>✓ Mask and hood completed.</div><div>✓ Forearm guards completed.</div><div>✓ Gloves completed.</div><div>✓ Boots completed.</div><div>✓ Modular cape completed.</div></div>
+<div class="doc"><b>SYSTEMS</b><div>✓ Oracle integrated.</div><div>✓ Communications tested.</div><div>✓ Navigation available.</div><div>✓ Low-light assistance tested.</div><div>✓ Equipment status monitoring available.</div><div>✓ Recorded evidence accessible.</div></div>
+<div class="doc"><b>GADGETS</b><div>✓ Camera operational.</div><div>✓ Portable lighting operational.</div><div>✓ Communications equipment checked.</div><div>✓ Utility equipment organised.</div><div>✓ Equipment storage completed.</div><div>✓ Smoke bombs.</div><div>✓ Mini bomb explosives (sort of harmless).</div><div>✓ Arm grappling hooks.</div></div>
+<p>He reads the list again, and one line makes him pause. “Sort of harmless.”</p>
+<p>“That phrase has been flagged,” says Oracle.</p>
+<p>“Flagged?”</p>
+<p>“It is not a recognised safety classification.”</p>
+<p>“It’s a joke.”</p>
+<p>“I have reserved judgement on that.”</p>
+<p>On the bench behind him sit the last two items he saved for the end: a case of smoke canisters and a wrist launcher for the grappling line.</p>
+<figure><img src="e9-11.jpg" alt="Smoke canisters and a wrist grappling launcher"></figure>
+<p>Then he looks at Oracle. “Anything missing?”</p>
+<p>“The checklist is complete. The final system tests have also been completed.”</p>
+<p>“Anything that needs to be fixed?”</p>
+<p>“No outstanding faults have been identified during the completed tests.”</p>
+<p>Wandile looks back at the screen. He moves the cursor to the final line.</p>
+<p class="big">PROJECT STATUS: COMPLETE.</p>
+<p>He clicks. The display changes.</p>
+<p class="big">ECLIPSE — VERSION TWO</p>
+<p class="big">FULLY OPERATIONAL</p>
+<figure><img src="e9-12.jpg" alt="ECLIPSE — VERSION TWO: FULLY OPERATIONAL"></figure>
+<p>Wandile leans back and, for a moment, simply takes it in.</p>
+<p>“We actually did it.”</p>
+<p>“You did.”</p>
+<p>“We.”</p>
+<p>“I provided assistance.”</p>
+<p>“And complained the entire time.”</p>
+<p>“I would describe that as consistent feedback.”</p>
+<p>Wandile laughs.</p>
+<h2 id="chapter9">Chapter 9</h2><h3>The Room Nobody Knows About</h3><p class="t">FRIDAY · 4:28 PM</p>
+<p>From the entrance, the completed lair looks like a different place.</p>
+<p>The workstation glows along one wall. The equipment sits in its designated storage sections. The suit hangs in its place, complete and ready, and the mask rests on its stand. The workbench is clean. The concealed entrance remains discreet, and nothing about the ordinary storage area outside gives away what lies behind it.</p>
+<figure><img src="e9-13.jpg" alt="The completed lair"></figure>
+<p>Wandile walks slowly through the room. He stops at the workstation. Then at the suit. Then at the entrance. He looks around one final time.</p>
+<p>“No one knows this exists.”</p>
+<p>“Correct.”</p>
+<p>“And no one needs to.”</p>
+<p>“Your privacy arrangements are in place.”</p>
+<p>He looks at the suit again. “Later tonight, I can finally stop thinking about all this for a few hours.”</p>
+<p>“The gathering is scheduled for this evening.”</p>
+<p>“I know. I meant the rest of the day.”</p>
+<p>He checks his phone. A message from Ethan lights up the screen, and then ten more arrive before he can read it. Every one of them is about food.</p>
+<div class="msg"><small>ETHAN</small>WE’RE COMING.</div>
+<p>“He’s acting like he lives here.”</p>
+<p>“His previous messages suggest a strong interest in your food arrangements.”</p>
+<p>“That’s one way of putting it.”</p>
+<p>He switches off the workstation display. The room stays ready, with everything where it belongs. The door closes behind him.</p>
+<h2 id="finalpage">Final Page</h2><h3>Back to Normal</h3><p class="t">FRIDAY · 5:12 PM</p>
+<p>Wandile walks into his bedroom and changes into ordinary clothes.</p>
+<p>The suit is secured in the hidden room. The equipment is stored. The workstation is inactive. His bedroom looks like the bedroom of an ordinary university student, which is the entire point.</p>
+<p>He straightens a few things on his desk. Where the mask and the gauntlets lay at dawn, there are now textbooks, a half-empty water bottle and a phone charger tangled around itself. It is the most ordinary desk in the world. He checks the time.</p>
+<figure><img src="e9-14.jpg" alt="Wandile back in his ordinary bedroom"></figure>
+<p>His phone lights up.</p>
+<div class="msg"><small>OLIVIA</small>Are we still on for tonight?</div>
+<div class="msg me"><small>WANDILE</small>Of course.</div>
+<div class="msg"><small>OLIVIA</small>Good. Looking forward to it.</div>
+<figure><img src="e9-15.jpg" alt="Olivia’s message on Wandile’s phone"></figure>
+<p>Wandile smiles.</p>
+<p class="back" style="text-align:center;margin-top:26px"><a href="index.html" target="_top" onclick="if(parent!==window){parent.postMessage('close',location.origin);return false}">&larr; Back to all parts</a></p>
+</main>
+<!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "72bf7dc2a5804386a06f2e6c3610c2e7"}'></script><!-- End Cloudflare Web Analytics -->
+<script src="/t.js" data-page="ep9" defer></script>
+<script src="/read.js" defer></script>
+</body></html>
